@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HumanResourceManagement"
         mc:Ignorable="d"
-        Title="MainWindow" Height="460" Width="380" ResizeMode="NoResize" Background="#FF202123" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        
+        Title="MainWindow" Height="460" Width="380" ResizeMode="NoResize" Background="#FF202123" WindowStartupLocation="CenterScreen" WindowStyle="None" >
     <Grid Margin="0,0,0,3">
-        <TextBox x:Name="txtUsername" GotFocus="TextBox_GotFocus_Username" LostFocus="TextBox_LostFocus_Username" HorizontalAlignment="Left" Margin="43,155,0,0" Foreground="#B2000000" VerticalAlignment="Top" Width="298" Height="38" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.05" Text="Username" Padding="20,0,0,0" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontWeight="Bold" TextChanged="TextBox_TextChanged" FontSize="14" ForceCursor="True">
+        <TextBox x:Name="txtUsername" GotFocus="TextBox_GotFocus_Username" LostFocus="TextBox_LostFocus_Username" HorizontalAlignment="Left" Margin="43,155,0,0" Foreground="#B2000000" VerticalAlignment="Top" Width="298" Height="38" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.05" Text="Tên đăng nhập" Padding="20,0,0,0" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontWeight="Bold" TextChanged="TextBox_TextChanged" FontSize="14" ForceCursor="True">
             <TextBox.Template>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border Background="{TemplateBinding Background}" 
@@ -19,7 +20,7 @@
                 </ControlTemplate>
             </TextBox.Template>
         </TextBox>
-        <Button Content="SIGN IN" HorizontalAlignment="Left" Margin="43,306,0,0" Padding="0" VerticalAlignment="Top" Click="Button_Click" RenderTransformOrigin="0.497,0.554" Width="298" Height="38" Background="#FF51A456" FontFamily="Bahnschrift" FontSize="14" BorderBrush="White" Foreground="White">
+        <Button Content="ĐĂNG NHẬP" HorizontalAlignment="Left" Margin="43,306,0,0" Padding="0" VerticalAlignment="Top" Click="Button_Click" RenderTransformOrigin="0.497,0.554" Width="298" Height="38" Background="#FF51A456" FontFamily="Bahnschrift" FontSize="14" BorderBrush="White" Foreground="White">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" 
@@ -31,7 +32,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button Content="SIGN IN" BorderThickness="0" HorizontalAlignment="Left" Margin="103,119,0,0" VerticalAlignment="Top" Click="Button_Click_1" Width="73" Background="{x:Null}" Foreground="#FFFDFDFD" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="14" Focusable="False">
+        <Button Content="Đăng nhập" BorderThickness="0" HorizontalAlignment="Left" Margin="103,119,0,0" VerticalAlignment="Top" Click="Button_Click_1" Width="73" Background="{x:Null}" Foreground="#FFFDFDFD" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="14" Focusable="False">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" Background="{TemplateBinding Background}" 
@@ -49,7 +50,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button Content="SIGN UP" BorderThickness="0" HorizontalAlignment="Left" Margin="205,119,0,0" VerticalAlignment="Top" Click="Button_Click_1" Width="73" Background="{x:Null}" Foreground="White" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="14" RenderTransformOrigin="0.164,0.64">
+        <Button Content="Đăng ký" BorderThickness="0" HorizontalAlignment="Left" Margin="205,119,0,0" VerticalAlignment="Top" Click="Button_Click_1" Width="73" Background="{x:Null}" Foreground="White" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="14" RenderTransformOrigin="0.164,0.64">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" Background="{TemplateBinding Background}" 
@@ -67,7 +68,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <TextBox x:Name="txtPassword" GotFocus="TextBox_GotFocus_Password" LostFocus="TextBox_LostFocus_Password" HorizontalAlignment="Left" Margin="43,220,0,0" Foreground="#B2000000" VerticalAlignment="Top" Width="298" Height="38" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.05" Text="Password" Padding="20,0,0,0" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="14">
+        <TextBox x:Name="txtPassword" GotFocus="TextBox_GotFocus_Password" LostFocus="TextBox_LostFocus_Password" HorizontalAlignment="Left" Margin="43,220,0,0" Foreground="#B2000000" VerticalAlignment="Top" Width="298" Height="38" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.05" Text="Mật khẩu" Padding="20,0,0,0" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="14" TextChanged="txtPassword_TextChanged">
             <TextBox.Template>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border Background="{TemplateBinding Background}" 
@@ -79,9 +80,9 @@
                 </ControlTemplate>
             </TextBox.Template>
         </TextBox>
-        <Image HorizontalAlignment="Left" Height="243" Margin="55,-50,0,0" VerticalAlignment="Top" Width="278" Source="/Assent/Icon/Company.png" OpacityMask="Black" Panel.ZIndex="-100"/>
-        <CheckBox Content="Stay signed in" HorizontalAlignment="Left" Margin="71,277,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontWeight="Bold" Foreground="White"/>
-        <Button Content="EXIT ?&#xD;&#xA;" HorizontalAlignment="Center" Margin="0,415,0,0" VerticalAlignment="Top" Background="{x:Null}" FontWeight="Bold" FontFamily="Bahnschrift" Height="17" Width="52" Click="Button_Click_2">
+        <Image HorizontalAlignment="Left" Height="243" Margin="55,-50,0,0" VerticalAlignment="Top" Width="278" Source="/Assent/Picture/Company.png" OpacityMask="Black" Panel.ZIndex="-100"/>
+        <CheckBox Content="Giữ đăng nhập" HorizontalAlignment="Left" Margin="71,277,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontWeight="Bold" Foreground="White"/>
+        <Button Content="THOÁT ?&#xA;" HorizontalAlignment="Center" Margin="0,415,0,0" VerticalAlignment="Top" Background="{x:Null}" FontWeight="Bold" FontFamily="Bahnschrift" Height="17" Width="52" Click="Button_Click_2">
             <Button.BorderBrush>
                 <SolidColorBrush Color="White" Opacity="0"/>
             </Button.BorderBrush>
@@ -105,5 +106,9 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <Label x:Name="txtErroIncorrect" Content="Tài khoản hoặc mật khẩu không chính xác" HorizontalAlignment="Left" Margin="74,349,0,0" VerticalAlignment="Top" Foreground="#FFEC3D3D" Width="236" FontFamily="Bahnschrift" Visibility="Hidden"/>
+        <Label x:Name="txtErroInput" Content="Vui lòng nhập đủ thông tin" HorizontalAlignment="Left" Margin="74,349,0,0" VerticalAlignment="Top" Foreground="#FFEC3D3D" Width="236" FontFamily="Bahnschrift" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
+        <Label x:Name="txtErroInputUser" Content="Thiếu tên đăng nhập" HorizontalAlignment="Left" Margin="74,349,0,0" VerticalAlignment="Top" Foreground="#FFEC3D3D" Width="236" FontFamily="Bahnschrift" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
+        <Label x:Name="txtErroInputPass" Content="Thiếu mật khẩu" HorizontalAlignment="Left" Margin="74,349,0,0" VerticalAlignment="Top" Foreground="#FFEC3D3D" Width="236" FontFamily="Bahnschrift" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
     </Grid>
 </Window>

@@ -102,7 +102,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assent\Icon\Company.png" />
+    <Resource Include="Assent\Picture\Company.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assent\Icon\_01.png" />
+    <Resource Include="Assent\Icon\_02.png" />
+    <Resource Include="Assent\Icon\_03.png" />
+    <Resource Include="Assent\Icon\_04.png" />
+    <Resource Include="Assent\Icon\_05.png" />
+    <Resource Include="Assent\Icon\_06.png" />
+    <Resource Include="Assent\Icon\_07.png" />
+    <Resource Include="Assent\Icon\_08.png" />
+    <Resource Include="Assent\Icon\_09.png" />
+    <Resource Include="Assent\Icon\_10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assent\Icon\Cheems_Cool.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

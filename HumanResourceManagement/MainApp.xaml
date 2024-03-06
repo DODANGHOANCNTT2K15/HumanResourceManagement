@@ -5,8 +5,126 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HumanResourceManagement"
         mc:Ignorable="d"
-        Title="MainApp" Height="450" Width="800">
+        Title="MainApp" Height="800" Width="1400" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True">
+    <Window.Background>
+        <SolidColorBrush Opacity="0"/>
+    </Window.Background>
     <Grid>
-        
+        <Border CornerRadius="20">
+            <Border.Background>
+                <SolidColorBrush Color="#FF202123"/>
+            </Border.Background>
+            <Image Source="/Assent/Picture/Company.png" Margin="34,-106,1166,564"/>
+        </Border>
+
+        <Grid Margin="1312,10,10,760">
+            <Border CornerRadius="10" Margin="-73,30,20,-40">
+                <Border.Background>
+                    <SolidColorBrush Color="#FF226332" Opacity="100"/>
+                </Border.Background>
+                <Grid>
+                    <Button Margin="83,8,10,8" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_1">
+                        <Image Height="21" Width="28" Source="/Assent/Icon/_07.png" Cursor="Hand"/>
+                    </Button>
+                    <!-- Thêm nút thứ hai -->
+                    <Button Margin="10,8,89,8" Background="{x:Null}" BorderBrush="{x:Null}">
+                        <Image Height="21" Width="28" Source="/Assent/Icon/_03.png" Cursor="Hand"/>
+                    </Button>
+                    <!-- Thêm nút thứ ba -->
+                    <Button Margin="48,8,47,8" Background="{x:Null}" BorderBrush="{x:Null}">
+                        <Image Height="21" Width="28" Source="/Assent/Icon/_05.png" Cursor="Hand"/>
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid Margin="40,120,1084,38">
+            <Border CornerRadius="17" Margin="0,0,57,0">
+                <Border.Background>
+                    <SolidColorBrush Color="#FF226332" Opacity="1"/>
+                </Border.Background>
+                <Grid>
+                    <Button Margin="0,54,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="38" Width="42" Source="/Assent/Icon/_01.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform AngleY="-0.231"/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="-0.496"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <TextBlock Text="Trang chính" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0,136,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="38" Width="42" Source="/Assent/Icon/_04.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform AngleY="-0.231"/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="-0.496"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <TextBlock Text="Nhân viên" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0,218,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Height="40" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="38" Width="42" Source="/Assent/Icon/_09.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform AngleY="-0.231"/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="-0.496"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" Text="Chấm công"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Grid Margin="0,426,0,0">
+                        <Label Margin="0,140,0,0" Content="Người dùng ẩn danh" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontFamily="Bahnschrift" FontSize="14"></Label>
+
+                        <Grid>
+                            <Button Width="80" Height="80" Click="Button_Click" Margin="70,44,69,92">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse Stroke="White">
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="/Assent/Icon/Cheems_Cool.jpg"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+        <Border CornerRadius="15" Margin="283,40,312,703">
+            <Border.Background>
+                <SolidColorBrush Color="#FF226332" Opacity="1"/>
+            </Border.Background>
+        </Border>
+        <Grid Margin="304,120,31,38">
+            <Border BorderBrush="White" CornerRadius="10" Margin="-20,0,0,0">
+                <Border.Background>
+                    <SolidColorBrush Color="White" Opacity="1"/>
+                </Border.Background>
+                <DataGrid x:Name="dataNHANVIEN"/>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
