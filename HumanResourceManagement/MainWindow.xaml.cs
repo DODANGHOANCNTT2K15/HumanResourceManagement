@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Data;
+using HumanResourceManagement.ClassStore;
 
 namespace HumanResourceManagement
 {
@@ -63,28 +64,57 @@ namespace HumanResourceManagement
                 using (SqlConnection conn = new SqlConnection(@"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False"))
                 {
                     conn.Open();
-                    string query = "SELECT * FROM tb_DANGNHAP WHERE USERNAME = '"+usernameCheck+"' AND PASSWORD = '" + passwordCheck +"'";
+                    string query = "SELECT * FROM tb_DANGNHAP WHERE USERNAME = '" + usernameCheck + "' AND PASSWORD = '" + passwordCheck + "'";
+                   
                     using (SqlCommand command = new SqlCommand(query, conn))
                     {
                         using (SqlDataReader dataReader = command.ExecuteReader())
                         {
                             bool point = true;
-                            while (dataReader.Read())
+                            dataReader.Read();
+                            if (!dataReader.HasRows)
                             {
-                                if(usernameCheck.Trim() == dataReader.GetString(1) && passwordCheck.Trim() == dataReader.GetString(2))
+                                txtErroIncorrect.Visibility = Visibility.Visible; ; return;
+                            }
+                           
+                            if (usernameCheck.Trim() == dataReader.GetString(1) && passwordCheck.Trim() == dataReader.GetString(2))
+                            {
+                                point = false;
+                                string manv = dataReader.GetInt32(0).ToString();
+                                dataReader.Close();
+
+                                string query1 = "SELECT * FROM tb_NHANVIEN WHERE MANV = '" + manv + "'";
+                                using (SqlCommand command1 = new SqlCommand(query1, conn))
                                 {
-                                    point = false;
-                                    MainApp mainApp = new MainApp();
-                                    mainApp.Show();
-                                    this.Hide();
+                                    using (SqlDataReader dataReader1 = command1.ExecuteReader())
+                                    {
+                                        if (dataReader1.Read()) // Kiểm tra xem có dữ liệu trả về không
+                                        {
+                                            NhanVien nhanVienCurrent = new NhanVien(
+                                                dataReader1.GetInt32(0),
+                                                dataReader1.GetString(1),
+                                                dataReader1.GetBoolean(2),
+                                                dataReader1.GetDateTime(3).ToString("dd/MM/yyyy"),
+                                                dataReader1.GetString(4),
+                                                dataReader1.GetString(5),
+                                                dataReader1.GetInt32(7),
+                                                dataReader1.GetInt32(8),
+                                                dataReader1.GetInt32(9)
+                                                );
+                                            MainApp mainApp = new MainApp(nhanVienCurrent);
+                                            mainApp.Show();
+                                            conn.Close();
+                                            this.Hide();
+                                        }
+                                    }
                                 }
                             }
-                            if (point){ txtErroIncorrect.Visibility = Visibility.Visible; }
+                            
+                            if (point) { txtErroIncorrect.Visibility = Visibility.Visible; }
                         }
                     }
                     conn.Close();
                 }
-                
             }
         }
 
