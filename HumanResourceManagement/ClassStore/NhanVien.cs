@@ -58,4 +58,55 @@ namespace HumanResourceManagement.ClassStore
             MaCV = maCV;
         }
     }
+
+    public class PhongBan
+    {
+        int maPB;
+        string tenPB;
+
+        public int MaPB { get; set; }
+        public string TenPB { get; set; }
+
+        public PhongBan() { }
+
+        public PhongBan(int maPB, string tenPB)
+        {
+            MaPB = maPB;
+            TenPB = tenPB; 
+        }
+    }
+
+    public class ChucVu
+    {
+        int maCV;
+        string tenCV;
+
+        public int MaCV { get; set; }
+        public string TenCV { get; set; }
+
+        public ChucVu() { }
+        
+        public ChucVu(int maCV, string tenCV)
+        {
+            MaCV = maCV;
+            TenCV = tenCV;
+        }
+    }
+
+    public class Quyen
+    {
+        int maQuyen;
+        string tenQuyen;
+
+        public int MaQuyen { get; set;}
+        public string TenQuyen { get; set; }
+        public Quyen() { }
+
+        public Quyen(int maQuyen, string tenQuyen)
+        {
+            MaQuyen = maQuyen;
+            TenQuyen = tenQuyen;
+        }
+    }
+
 }
