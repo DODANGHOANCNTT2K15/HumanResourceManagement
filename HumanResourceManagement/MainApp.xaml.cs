@@ -15,6 +15,7 @@ using System.Data.SqlClient;
 using System.Data;
 using HumanResourceManagement.ClassStore;
 using System.Security.Cryptography;
+using System.Globalization;
 
 
 namespace HumanResourceManagement
@@ -23,7 +24,7 @@ namespace HumanResourceManagement
     /// Interaction logic for MainApp.xaml
     /// </summary>
     /// 
-   
+
     public partial class MainApp : Window
     {
         SqlConnection conn = new SqlConnection(@"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False");
@@ -33,6 +34,7 @@ namespace HumanResourceManagement
             InitializeComponent();
             txtNhanVienCurrent.Content = nhanVienCurrent.TenNV;
             _nhanVienCurrent = nhanVienCurrent;
+            txtMainTitle.Content = "TRANG CHÍNH";
         }
 
         private void GetDuLieuTuBangKhac(string query, TextBlock txtB)
@@ -53,7 +55,7 @@ namespace HumanResourceManagement
                 conn.Close();
             }
         }
-        private void GetDuLieuTuBangKhac1(string query,ref string a)
+        private void GetDuLieuTuBangKhac1(string query, ref string a)
         {
             using (SqlConnection conn = new SqlConnection(@"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False"))
             {
@@ -90,6 +92,7 @@ namespace HumanResourceManagement
             }
         }
 
+        // nút xem thông tin cá nhân
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             gridNhanh1.Visibility = Visibility.Hidden;
@@ -97,6 +100,16 @@ namespace HumanResourceManagement
             gridNhanh2_1.Visibility = Visibility.Hidden;
             gridNhanh3.Visibility = Visibility.Visible;
             gridNhanh4.Visibility = Visibility.Hidden;
+            gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
+
             txtBMaNV.Text = _nhanVienCurrent.MaNV.ToString();
             txtBTenNV.Text = _nhanVienCurrent.TenNV.ToString();
             string query = "SELECT p.TENPB " + // Chọn cột TENPB từ bảng tb_PHONGBAN
@@ -134,15 +147,38 @@ namespace HumanResourceManagement
             gridNhanh2_1.Visibility = Visibility.Hidden;
             gridNhanh3.Visibility = Visibility.Hidden;
             gridNhanh4.Visibility = Visibility.Hidden;
+            gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
+            txtMainTitle.Content = "TRANG CHÍNH";
         }
 
+        // nút tạo ra danh sách nhân viên
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            txtMainTitle.Content = "DANH SÁCH NHÂN VIÊN";
             gridNhanh1.Visibility = Visibility.Hidden;
             gridNhanh2_0.Visibility = Visibility.Visible;
             gridNhanh2_1.Visibility = Visibility.Visible;
             gridNhanh3.Visibility = Visibility.Hidden;
             gridNhanh4.Visibility = Visibility.Hidden;
+            gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
+
+
             conn.Open();
             string sql = "SELECT * FROM tb_NhanVien";
             SqlCommand cmd = new SqlCommand(sql, conn);
@@ -191,10 +227,10 @@ namespace HumanResourceManagement
 
 
                 // Tạo một Label mới và gán giá trị từ SQL vào Content
-               
+
                 Label label = new Label
                 {
-                    
+
                     Content = nhanVien.TenNV,
                     Foreground = Brushes.White,
                     Width = 231,
@@ -208,8 +244,8 @@ namespace HumanResourceManagement
                            "JOIN tb_PHONGBAN p ON n.MAPB = p.MAPB " +// Kết nối hai bảng dựa trên cột MAPB
                            "WHERE n.MANV = '" + nhanVien.MaNV + "'";
                 string labelString1 = "";
-                GetDuLieuTuBangKhac1(query1,ref labelString1);
-                
+                GetDuLieuTuBangKhac1(query1, ref labelString1);
+
                 Label label1 = new Label
                 {
                     Content = labelString1,
@@ -253,9 +289,10 @@ namespace HumanResourceManagement
                 Button button1 = new Button
                 {
                     Content = "Chỉnh sửa",
-                    Width = 100,
+                    Width = 70,
                 };
                 button1.Click += (s, args) => Button_Click_10(sender, e, nhanVien.MaNV);
+                
                 Button button2 = new Button
                 {
                     Content = "Xóa",
@@ -281,11 +318,42 @@ namespace HumanResourceManagement
             conn.Close();
         }
 
+        // nút cập nhật thông tin trong nhánh 4 cập nhật thông tin cá nhân
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "UPDATE tb_NHANVIEN SET TENNV = @tenNV, GIOITINH = @gioiTinh, NGAYSINH = @ngaySinh, DIENTHOAI = @dienThoai, DIACHI = @diaChi, MAPB = @maPB, MAQUYEN = @maQuyen, MACV = @maCV WHERE MaNV = @maNV";
 
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    if (rbNamUpdatePersonal.IsChecked == true)
+                    {
+                        command.Parameters.AddWithValue("@gioiTinh", true); // Nam
+                    }
+                    else if (rbNuUpdatePersonal.IsChecked == true)
+                    {
+                        command.Parameters.AddWithValue("@gioiTinh", false);
+                    }
+                    command.Parameters.AddWithValue("@tenNV", txtBETENNV.Text);
+                    command.Parameters.AddWithValue("@dienThoai", txtBESDT.Text);
+                    command.Parameters.AddWithValue("@diaChi", txtBEDC.Text);
+                    command.Parameters.AddWithValue("@ngaySinh", ngaySinhUpdatePersonal.SelectedDate);
+                    command.Parameters.AddWithValue("@maPB", ((ComboBoxItem)cbPhongBanUpdatePersonal.SelectedItem).Tag.ToString());
+                    command.Parameters.AddWithValue("@maCV", ((ComboBoxItem)cbChucVuUpdatePersonal.SelectedItem).Tag.ToString());
+                    command.Parameters.AddWithValue("@maQuyen", _nhanVienCurrent.MaQuyen);
+                    command.Parameters.AddWithValue("@maNV", _nhanVienCurrent.MaNV);
+
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Cập nhật nhân viên thành công !");
+                    conn.Close();
+                }
+            }
         }
 
+        // nút vào nhánh cập nhật thông tin cá nhân
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             gridNhanh1.Visibility = Visibility.Hidden;
@@ -293,29 +361,94 @@ namespace HumanResourceManagement
             gridNhanh2_1.Visibility = Visibility.Hidden;
             gridNhanh3.Visibility = Visibility.Hidden;
             gridNhanh4.Visibility = Visibility.Visible;
+            gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
+
             txtBEMANV.Text = _nhanVienCurrent.MaNV.ToString();
             txtBETENNV.Text = _nhanVienCurrent.TenNV.ToString();
-            string query = "SELECT p.TENPB " + 
-                            "FROM tb_NHANVIEN n " +
-                            "JOIN tb_PHONGBAN p ON n.MAPB = p.MAPB " +
-                            "WHERE n.MANV = '" + _nhanVienCurrent.MaNV + "'";
-            GetDuLieuTuBangKhac3(query, txtBEPB);
-            string query1 = "SELECT p.TENCV " + 
-                            "FROM tb_NHANVIEN n " +
-                            "JOIN tb_CHUCVU p ON n.MACV = p.MACV " +
-                            "WHERE n.MANV = '" + _nhanVienCurrent.MaNV + "'";
-            GetDuLieuTuBangKhac3(query1, txtBECV);
-            string query2 = "SELECT p.TENQUYEN " + 
-                            "FROM tb_NHANVIEN n " +
-                            "JOIN tb_QUYEN p ON n.MAQUYEN = p.MAQUYEN " +
-                            "WHERE n.MANV = '" + _nhanVienCurrent.MaNV + "'";
-            GetDuLieuTuBangKhac3(query2, txtBEQuyen);
-            if (_nhanVienCurrent.GioiTinh == false) { txtBEGT.Text = "Nữ"; } else { txtBEGT.Text = "Nam"; }
+
+            if (_nhanVienCurrent.GioiTinh == true) { rbNamUpdatePersonal.IsChecked = true; } else { rbNuUpdatePersonal.IsChecked = true; }
             txtBEDC.Text = _nhanVienCurrent.DiaChi;
             txtBESDT.Text = _nhanVienCurrent.DienThoai;
-            txtBENS.Text = _nhanVienCurrent.NgaySinh;
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "SELECT TENPB, MAPB FROM tb_PHONGBAN";
+
+
+            if (cbPhongBanUpdatePersonal.Items.Count == 0)
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader["TENPB"].ToString(),
+                                Tag = reader["MAPB"].ToString()
+                            };
+
+                            cbPhongBanUpdatePersonal.Items.Add(item);
+                        }
+                        foreach (ComboBoxItem item in cbPhongBanUpdatePersonal.Items)
+                        {
+                            if (item.Tag.ToString() == _nhanVienCurrent.MaCV.ToString())
+                            {
+                                cbPhongBanUpdatePersonal.SelectedItem = item;
+                                break;
+                            }
+                        }
+                        conn.Close();
+                    }
+                }
+
+            }
+            if(cbChucVuUpdatePersonal.Items.Count == 0)
+            {
+                string query1 = "SELECT TENCV, MACV FROM tb_CHUCVU";
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query1, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader["TENCV"].ToString(),
+                                Tag = reader["MACV"].ToString()
+                            };
+                            cbChucVuUpdatePersonal.Items.Add(item);
+                        }
+                        foreach (ComboBoxItem item in cbChucVuUpdatePersonal.Items)
+                        {
+                            if (item.Tag.ToString() == _nhanVienCurrent.MaCV.ToString())
+                            {
+                                cbChucVuUpdatePersonal.SelectedItem = item;
+                                break;
+                            }
+                        }
+                        conn.Close();
+                    }
+                }
+            }
+            DateTime dt = DateTime.ParseExact(_nhanVienCurrent.NgaySinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            ngaySinhUpdatePersonal.SelectedDate = dt;
         }
 
+        // nút xác nhận thêm nhân viên
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
@@ -357,13 +490,14 @@ namespace HumanResourceManagement
 
                         conn.Open();
                         command.ExecuteNonQuery();
-                        MessageBox.Show("done");
+                        MessageBox.Show("Thêm nhân viên thành công !");
                         conn.Close();
                     }
                 }
             }
         }
 
+        // nút thêm nhân viên trong nhánh 2
         private void Button_Click_7(object sender, RoutedEventArgs e)
         {
             gridNhanh1.Visibility = Visibility.Hidden;
@@ -372,54 +506,70 @@ namespace HumanResourceManagement
             gridNhanh3.Visibility = Visibility.Hidden;
             gridNhanh4.Visibility = Visibility.Hidden;
             gridNhanh5.Visibility = Visibility.Visible;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
 
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
             string query = "SELECT TENPB, MAPB FROM tb_PHONGBAN";
 
-            using (SqlConnection conn = new SqlConnection(connString))
+            if (cbPhongBan.Items.Count == 0)
             {
-                using (SqlCommand command = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    conn.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SqlCommand command = new SqlCommand(query, conn))
                     {
-                        ComboBoxItem item = new ComboBoxItem
-                        {
-                            Content = reader["TENPB"].ToString(),
-                            Tag = reader["MAPB"].ToString()
-                        };
+                        conn.Open();
+                        SqlDataReader reader = command.ExecuteReader();
 
-                        cbPhongBan.Items.Add(item);
+                        while (reader.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader["TENPB"].ToString(),
+                                Tag = reader["MAPB"].ToString()
+                            };
+
+                            cbPhongBan.Items.Add(item);
+                        }
+
+                        conn.Close();
                     }
-                    
-                    conn.Close();
                 }
             }
-            string query1 = "SELECT TENCV, MACV FROM tb_CHUCVU";
-            using (SqlConnection conn = new SqlConnection(connString))
+            
+            if(cbChucVu.Items.Count == 0)
             {
-                using (SqlCommand command = new SqlCommand(query1, conn))
+                string query1 = "SELECT TENCV, MACV FROM tb_CHUCVU";
+                using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    conn.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SqlCommand command = new SqlCommand(query1, conn))
                     {
-                        ComboBoxItem item = new ComboBoxItem
+                        conn.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
                         {
-                            Content = reader["TENCV"].ToString(),
-                            Tag = reader["MACV"].ToString()
-                        };
-                        cbChucVu.Items.Add(item);
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader["TENCV"].ToString(),
+                                Tag = reader["MACV"].ToString()
+                            };
+                            cbChucVu.Items.Add(item);
+                        }
+
+                        conn.Close();
                     }
-                    
-                    conn.Close();
                 }
             }
         }
 
+        // nút hủy cho nhánh 5 thêm nhân viên
         private void Button_Click_8(object sender, RoutedEventArgs e)
         {
             gridNhanh1.Visibility = Visibility.Visible;
@@ -428,8 +578,17 @@ namespace HumanResourceManagement
             gridNhanh3.Visibility = Visibility.Hidden;
             gridNhanh4.Visibility = Visibility.Hidden;
             gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
         }
 
+        // nút hủy cho nhánh 4 cập nhận thông tin cá nhân
         private void Button_Click_9(object sender, RoutedEventArgs e)
         {
             gridNhanh1.Visibility = Visibility.Visible;
@@ -438,12 +597,75 @@ namespace HumanResourceManagement
             gridNhanh3.Visibility = Visibility.Visible;
             gridNhanh4.Visibility = Visibility.Hidden;
             gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
         }
 
+        // xem thông tin của nhân viên khác 
         private void Button_Click_10(object sender, RoutedEventArgs e, int maNV)
         {
-            MessageBox.Show(maNV + "");
+            gridNhanh1.Visibility = Visibility.Hidden;
+            gridNhanh2_0.Visibility = Visibility.Hidden;
+            gridNhanh2_1.Visibility = Visibility.Hidden;
+            gridNhanh3.Visibility = Visibility.Hidden;
+            gridNhanh4.Visibility = Visibility.Hidden;
+            gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Visible;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
+
+            buttonEditOrderNV.Tag = maNV;
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "SELECT * FROM tb_NHANVIEN WHERE MANV = @maNV";
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@maNV", maNV);
+                    conn.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        txtBMaNVO.Text = reader["MANV"].ToString();
+                        txtBTenNVO.Text = reader["TENNV"].ToString();
+                        string query1 = "SELECT p.TENPB " + // Chọn cột TENPB từ bảng tb_PHONGBAN
+                                        "FROM tb_NHANVIEN n " +
+                                        "JOIN tb_PHONGBAN p ON n.MAPB = p.MAPB " +// Kết nối hai bảng dựa trên cột MAPB
+                                        "WHERE n.MANV = '" + maNV + "'";
+                        GetDuLieuTuBangKhac(query1, txtBPBO);
+                        string query2 = "SELECT p.TENCV " + // Chọn cột TENPB từ bảng tb_PHONGBAN
+                                        "FROM tb_NHANVIEN n " +
+                                        "JOIN tb_CHUCVU p ON n.MACV = p.MACV " +// Kết nối hai bảng dựa trên cột MAPB
+                                        "WHERE n.MANV = '" + maNV + "'";
+                        GetDuLieuTuBangKhac(query2, txtBCVO);
+                        string query3 = "SELECT p.TENQUYEN " + // Chọn cột TENPB từ bảng tb_PHONGBAN
+                                        "FROM tb_NHANVIEN n " +
+                                        "JOIN tb_QUYEN p ON n.MAQUYEN = p.MAQUYEN " +// Kết nối hai bảng dựa trên cột MAPB
+                                        "WHERE n.MANV = '" + maNV + "'";
+                        GetDuLieuTuBangKhac(query3, txtBQuyenO);
+                        if (bool.Parse(reader["GIOITINH"].ToString()) == false) { txtBGTO.Text = "Nữ"; } else { txtBGTO.Text = "Nam"; }
+                        txtBDCO.Text = reader["DIACHI"].ToString();
+                        txtBSDTO.Text = reader["DIENTHOAI"].ToString();
+                        txtBNSO.Text = reader.GetDateTime(3).ToString("dd/MM/yyyy");
+                    }
+                    conn.Close();
+                }
+            }
         }
+
+        // nút xóa nhân viên và tải lại danh sách cho nhân viên
         private void Button_Click_11(object sender, RoutedEventArgs e, int maNV)
         {
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
@@ -454,7 +676,7 @@ namespace HumanResourceManagement
                 using (SqlCommand command = new SqlCommand(query, conn))
                 {
                     command.Parameters.AddWithValue("@maNV", maNV);
-                    
+
                     MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn xóa chứ", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
@@ -570,10 +792,11 @@ namespace HumanResourceManagement
                             };
                             Button button1 = new Button
                             {
-                                Content = "Chỉnh sửa",
-                                Width = 100,
+                                Content = "Chi tiết",
+                                Width = 70,
                             };
                             button1.Click += (s, args) => Button_Click_10(sender, e, nhanVien.MaNV);
+                            
                             Button button2 = new Button
                             {
                                 Content = "Xóa",
@@ -606,6 +829,203 @@ namespace HumanResourceManagement
                 }
             }
 
+        }
+
+        // nút minimized cho app
+        private void Button_Click_12(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        // nút hiện danh sách nhân viên
+        private void Button_Click_13(object sender, RoutedEventArgs e)
+        {
+            gridNhanh1.Visibility = Visibility.Hidden;
+            gridNhanh2_0.Visibility = Visibility.Visible;
+            gridNhanh2_1.Visibility = Visibility.Visible;
+            gridNhanh3.Visibility = Visibility.Hidden;
+            gridNhanh4.Visibility = Visibility.Hidden;
+            gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
+        }
+
+
+        private void Button_Click_14(object sender, RoutedEventArgs e)
+        {
+            gridNhanh1.Visibility = Visibility.Hidden;
+            gridNhanh2_0.Visibility = Visibility.Hidden;
+            gridNhanh2_1.Visibility = Visibility.Hidden;
+            gridNhanh3.Visibility = Visibility.Hidden;
+            gridNhanh4.Visibility = Visibility.Hidden;
+            gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Visible;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
+
+
+            int maNV = (int)buttonEditOrderNV.Tag;
+            string maPB_NV ="", maCV_NV ="";
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "SELECT * FROM tb_NHANVIEN WHERE MANV = @maNV";
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@maNV", maNV);
+                    conn.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        txtBETENNVO.Text = reader["TENNV"].ToString();
+
+                        if (reader["GIOITINH"].Equals(true)) { rbNamUpdatelOrder.IsChecked = true; } else { rbNuUpdateOrder.IsChecked = true; }
+                        txtBEDCO.Text = reader["DIACHI"].ToString();
+                        txtBESDTO.Text = reader["DIENTHOAI"].ToString();
+                        maPB_NV = reader["MAPB"].ToString();
+                        maCV_NV = reader["MACV"].ToString();
+                        ngaySinhUpdateOrder.SelectedDate = reader.GetDateTime(3);
+                        buttonUpdateOrder.Tag = maNV;
+                    }
+                    conn.Close();
+                }
+            }
+            
+
+            if (cbPhongBanUpdateOrder.Items.Count == 0)
+            {
+                string query1 = "SELECT TENPB, MAPB FROM tb_PHONGBAN";
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query1, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader["TENPB"].ToString(),
+                                Tag = reader["MAPB"].ToString()
+                            };
+
+                            cbPhongBanUpdateOrder.Items.Add(item);
+                        }
+                        foreach (ComboBoxItem item in cbPhongBanUpdateOrder.Items)
+                        {
+                            if (item.Tag.ToString() == maPB_NV)
+                            {
+                                cbPhongBanUpdateOrder.SelectedItem = item;
+                                break;
+                            }
+                        }
+                        conn.Close();
+                    }
+                }
+
+            }
+            if (cbChucVuUpdateOrder.Items.Count == 0)
+            {
+                string query2 = "SELECT TENCV, MACV FROM tb_CHUCVU";
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query2, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader["TENCV"].ToString(),
+                                Tag = reader["MACV"].ToString()
+                            };
+                            cbChucVuUpdateOrder.Items.Add(item);
+                        }
+                        foreach (ComboBoxItem item in cbChucVuUpdateOrder.Items)
+                        {
+                            if (item.Tag.ToString() == maCV_NV)
+                            {
+                                cbChucVuUpdateOrder.SelectedItem = item;
+                                break;
+                            }
+                        }
+                        conn.Close();
+                    }
+                }
+            }
+            
+        }
+
+        private void Button_Click_15(object sender, RoutedEventArgs e)
+        {
+            int maNV = (int)buttonUpdateOrder.Tag;
+
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "UPDATE tb_NHANVIEN SET TENNV = @tenNV, GIOITINH = @gioiTinh, NGAYSINH = @ngaySinh, DIENTHOAI = @dienThoai, DIACHI = @diaChi, MAPB = @maPB, MACV = @maCV WHERE MANV = @maNV";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("@maNV", maNV);
+                    if (rbNamUpdatelOrder.IsChecked == true)
+                    {
+                        command.Parameters.AddWithValue("@gioiTinh", true); // Nam
+                    }
+                    else if (rbNuUpdateOrder.IsChecked == true)
+                    {
+                        command.Parameters.AddWithValue("@gioiTinh", false);
+                    }
+                    command.Parameters.AddWithValue("@tenNV", txtBETENNVO.Text);
+                    command.Parameters.AddWithValue("@dienThoai", txtBESDTO.Text);
+                    command.Parameters.AddWithValue("@diaChi", txtBEDCO.Text);
+                    command.Parameters.AddWithValue("@ngaySinh", ngaySinhUpdateOrder.SelectedDate);
+                    command.Parameters.AddWithValue("@maPB", ((ComboBoxItem)cbPhongBanUpdateOrder.SelectedItem).Tag.ToString());
+                    command.Parameters.AddWithValue("@maCV", ((ComboBoxItem)cbChucVuUpdateOrder.SelectedItem).Tag.ToString());
+
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Cập nhật nhân viên thành công !");
+                    conn.Close();
+                }
+            }
+
+        }
+
+        private void Button_Click_16(object sender, RoutedEventArgs e)
+        {
+            txtMainTitle.Content = "DANH SÁCH PHÂN QUYỀN";
+
+        }
+
+        private void Button_Click_17(object sender, RoutedEventArgs e)
+        {
+            txtMainTitle.Content = "DANH SÁCH CHỨC VỤ";
+        }
+
+        private void Button_Click_18(object sender, RoutedEventArgs e)
+        {
+            txtMainTitle.Content = "DANH SÁCH PHÒNG BAN";
+        }
+
+        private void Button_Click_19(object sender, RoutedEventArgs e)
+        {
+            txtMainTitle.Content = "CHẤM CÔNG";
         }
     }
 }

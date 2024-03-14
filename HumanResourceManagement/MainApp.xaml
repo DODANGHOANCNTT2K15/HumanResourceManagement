@@ -27,7 +27,7 @@
                         <Image Height="21" Width="28" Source="/Assent/Icon/_07.png" Cursor="Hand"/>
                     </Button>
                     <!-- Thêm nút thứ hai -->
-                    <Button Margin="10,8,89,8" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button Margin="10,8,89,8" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_12">
                         <Image Height="21" Width="28" Source="/Assent/Icon/_08.png" Cursor="Hand"/>
                     </Button>
                     <!-- Thêm nút thứ ba -->
@@ -43,7 +43,7 @@
                     <SolidColorBrush Color="#FF226332" Opacity="1"/>
                 </Border.Background>
                 <Grid>
-                    <Button Margin="0,54,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand" Click="Button_Click_2">
+                    <Button Margin="0,50,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand" Click="Button_Click_2">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="38" Width="42" Source="/Assent/Icon/_01.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Image.RenderTransform>
@@ -58,7 +58,7 @@
                             <TextBlock Text="Trang chính" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16"/>
                         </StackPanel>
                     </Button>
-                    <Button Margin="0,136,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand" Click="Button_Click_3">
+                    <Button Margin="0,110,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand" Click="Button_Click_3">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="38" Width="42" Source="/Assent/Icon/_04.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Image.RenderTransform>
@@ -73,7 +73,7 @@
                             <TextBlock Text="Nhân viên" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16"/>
                         </StackPanel>
                     </Button>
-                    <Button Margin="0,218,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Height="40" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand">
+                    <Button Margin="0,350,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Height="40" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand" Click="Button_Click_19">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="38" Width="42" Source="/Assent/Icon/_09.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Image.RenderTransform>
@@ -86,6 +86,51 @@
                                 </Image.RenderTransform>
                             </Image>
                             <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" Text="Chấm công"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0,170,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Height="40" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand" Click="Button_Click_16">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="38" Width="42" Source="/Assent/Icon/_09.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform AngleY="-0.231"/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="-0.496"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" Text="Phân quyền"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0,230,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Height="40" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand" Click="Button_Click_17">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="38" Width="42" Source="/Assent/Icon/_09.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform AngleY="-0.231"/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="-0.496"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" Text="Chức vụ"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0,290,0,0" HorizontalAlignment="Left" Width="238" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Height="40" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="20,1,1,1" Cursor="Hand" Click="Button_Click_18">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="38" Width="42" Source="/Assent/Icon/_09.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform AngleY="-0.231"/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="-0.496"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" Text="Phòng ban"/>
                         </StackPanel>
                     </Button>
 
@@ -116,7 +161,7 @@
             <Border.Background>
                 <SolidColorBrush Color="#FF226332" Opacity="1"/>
             </Border.Background>
-            <Label Content="Danh sách nhân viên" Margin="30,0,0,0" FontFamily="Bahnschrift" Foreground="White" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label x:Name="txtMainTitle" Content="Danh sách nhân viên" Margin="30,0,0,0" FontFamily="Bahnschrift" Foreground="White" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Border>
         <!-- Phần nhánh 1-->
         <Grid x:Name="gridNhanh1" Margin="321,120,31,38" Visibility="Hidden">
@@ -124,7 +169,7 @@
             <Label Content="CHÀO MỪNG" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Britannic Bold" FontSize="100" Foreground="White" FontWeight="Bold"/>
         </Grid>
         <!-- Phần nhánh 2-->
-        <Grid x:Name="gridNhanh2_0" Margin="304,120,49,629" Panel.ZIndex="100">
+        <Grid x:Name="gridNhanh2_0" Margin="304,120,49,629" Panel.ZIndex="100" Visibility="Hidden">
             <Border Background="#FF3B862B">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Width="996">
                     <Label Content="Họ và tên" Foreground="White" Width="230" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
@@ -173,7 +218,7 @@
             <Label Content="Ngày sinh :" Margin="334,341,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Địa chỉ :" Margin="337,510,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Image HorizontalAlignment="Left" Height="196" Margin="56,42,0,0" VerticalAlignment="Top" Width="194" Source="/Assent/Icon/Cheems_Cool.jpg"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="839,518,0,0" VerticalAlignment="Top" Height="56" Width="103" Click="Button_Click_5"/>
+            <Button Content="Chỉnh sửa" HorizontalAlignment="Left" Margin="839,518,0,0" VerticalAlignment="Top" Height="56" Width="103" Click="Button_Click_5"/>
         </Grid>
         <!--Nhánh 4 - Cập nhật cá nhân-->
         <Grid x:Name="gridNhanh4" Margin="304,120,31,38" Visibility="Hidden">
@@ -185,25 +230,29 @@
             <Label Content="Phòng ban :" Margin="74,175,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Họ và tên :" Margin="74,116,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Số điện thoại :" Margin="74,402,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label Content="Quyền truy cấp :" Margin="72,458,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="" Margin="72,458,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Giới tính : " Margin="74,287,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Ngày sinh :" Margin="72,341,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label Content="Địa chỉ :" Margin="74,510,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Địa chỉ :" Margin="74,458,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <TextBox x:Name="txtBEMANV" HorizontalAlignment="Left" Margin="257,56,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
             <TextBox x:Name="txtBETENNV" HorizontalAlignment="Left" Margin="257,120,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtBEPB" HorizontalAlignment="Left" Margin="257,179,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtBECV" HorizontalAlignment="Left" Margin="257,238,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtBEGT" HorizontalAlignment="Left" Margin="257,291,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtBENS" HorizontalAlignment="Left" Margin="257,345,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
             <TextBox x:Name="txtBESDT" HorizontalAlignment="Left" Margin="257,406,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtBEQuyen" HorizontalAlignment="Left" Margin="257,462,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtBEDC" HorizontalAlignment="Left" Margin="257,514,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txtBEDC" HorizontalAlignment="Left" Margin="257,462,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
             <Button Margin="257,570,621,32" Content="Cập nhật" Click="Button_Click_4">
 
             </Button>
             <Button Margin="464,570,487,32" Content="Hủy" Click="Button_Click_9">
 
             </Button>
+            <ComboBox x:Name="cbPhongBanUpdatePersonal" Margin="256,178,566,436" Foreground="Black">
+
+            </ComboBox>
+            <ComboBox x:Name="cbChucVuUpdatePersonal" Margin="257,241,565,373" Foreground="Black">
+
+            </ComboBox>
+            <RadioButton x:Name="rbNamUpdatePersonal" Content="Nam" GroupName="GioiTinh" Margin="260,291,745,324" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontSize="16" IsChecked="True" />
+            <RadioButton x:Name="rbNuUpdatePersonal" Content="Nữ" GroupName="GioiTinh" Margin="378,293,633,326" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontSize="16" />
+            <DatePicker x:Name="ngaySinhUpdatePersonal" Margin="256,346,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="319" Text="Chọn ngày sinh"/>
         </Grid>
         <!--Nhánh 5 Thêm nhân viên-->
         <Grid x:Name="gridNhanh5" Margin="304,120,31,38" Visibility="Hidden">
@@ -236,7 +285,7 @@
             <Button Margin="257,570,621,32" Content="Thêm" Click="Button_Click_6">
 
             </Button>
-            <Button Margin="464,570,487,32" Content="Hủy" Click="Button_Click_8">
+            <Button Margin="464,570,487,32" Content="Hủy" Click="Button_Click_3">
 
             </Button>
             <ComboBox x:Name="cbPhongBan" Margin="256,110,566,504" Foreground="Black">
@@ -249,6 +298,135 @@
             <RadioButton x:Name="rbNam" Content="Nam" GroupName="GioiTinh" Margin="262,227,743,388" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontSize="16" IsChecked="True" />
             <RadioButton x:Name="rbNu" Content="Nữ" GroupName="GioiTinh" Margin="380,229,631,390" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontSize="16" />
         </Grid>
-        <!--Nhánh 6 cập nhật, xóa-->
+        <!--Nhánh 6 thông tin nhân viên khác-->
+        <Grid x:Name="gridNhanh6" Margin="304,120,31,38" Visibility="Hidden">
+            <Border Background="#FF3C5B5F"/>
+            <TextBlock x:Name="txtBMaNVO" Margin="554,62,0,0" Text="Đỗ Đăng Hoàn" FontFamily="Bahnschrift" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"></TextBlock>
+            <TextBlock x:Name="txtBDCO" Margin="554,527,0,0" Text="Đỗ Đăng Hoàn" FontFamily="Bahnschrift" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"></TextBlock>
+            <TextBlock x:Name="txtBQuyenO" Margin="554,468,0,0" Text="Đỗ Đăng Hoàn" FontFamily="Bahnschrift" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"></TextBlock>
+            <TextBlock x:Name="txtBSDTO" Margin="554,412,0,0" Text="Đỗ Đăng Hoàn" FontFamily="Bahnschrift" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"></TextBlock>
+            <TextBlock x:Name="txtBNSO" Margin="554,351,0,0" Text="Đỗ Đăng Hoàn" FontFamily="Bahnschrift" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"></TextBlock>
+            <TextBlock x:Name="txtBGTO" Margin="554,297,0,0" Text="Đỗ Đăng Hoàn" FontFamily="Bahnschrift" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"></TextBlock>
+            <TextBlock x:Name="txtBCVO" Margin="554,244,0,0" Text="Đỗ Đăng Hoàn" FontFamily="Bahnschrift" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"></TextBlock>
+            <TextBlock x:Name="txtBPBO" Margin="554,185,0,0" Text="Đỗ Đăng Hoàn" FontFamily="Bahnschrift" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"></TextBlock>
+            <TextBlock x:Name="txtBTenNVO" Margin="554,126,0,0" Text="Đỗ Đăng Hoàn" FontFamily="Bahnschrift" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"></TextBlock>
+            <Label Content="Mã :" Margin="337,52,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Giữ chức vụ :" Margin="336,234,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Phòng ban :" Margin="337,175,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Họ và tên :" Margin="337,116,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Số điện thoại :" Margin="336,402,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Quyền truy cấp :" Margin="334,458,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Giới tính : " Margin="337,287,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Ngày sinh :" Margin="334,341,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Địa chỉ :" Margin="337,510,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Image HorizontalAlignment="Left" Height="196" Margin="56,42,0,0" VerticalAlignment="Top" Width="194" Source="/Assent/Icon/Cheems_Cool.jpg"/>
+            <Button Content="Quay lại" HorizontalAlignment="Left" Margin="839,518,0,0" VerticalAlignment="Top" Height="56" Width="103" Click="Button_Click_13"/>
+            <Button x:Name="buttonEditOrderNV" Content="Chỉnh sửa" HorizontalAlignment="Left" Margin="839,435,0,0" VerticalAlignment="Top" Height="56" Width="103" Click="Button_Click_14"/>
+        </Grid>
+        <!--Nhánh 7 Cập nhật thông tin cho nhân viên khác-->
+        <Grid x:Name="gridNhanh7" Margin="304,120,31,38" Visibility="Hidden">
+            <Border Background="#FFD27171" Margin="0,0,10,0">
+
+            </Border>
+
+            <Label Content="Giữ chức vụ :" Margin="77,159,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Phòng ban :" Margin="77,100,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Họ và tên :" Margin="77,41,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Số điện thoại :" Margin="77,327,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="" Margin="72,458,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Giới tính : " Margin="77,212,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Ngày sinh :" Margin="75,266,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Địa chỉ :" Margin="77,383,0,0" FontFamily="Bahnschrift" FontSize="20" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+            <TextBox x:Name="txtBETENNVO" HorizontalAlignment="Left" Margin="257,45,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txtBESDTO" HorizontalAlignment="Left" Margin="257,331,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txtBEDCO" HorizontalAlignment="Left" Margin="257,387,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="321" Height="26" VerticalContentAlignment="Center"/>
+            <Button x:Name="buttonUpdateOrder" Margin="257,570,621,32" Content="Cập nhật" Click="Button_Click_15">
+
+            </Button>
+            <Button Margin="464,570,487,32" Content="Hủy" Click="Button_Click_3">
+
+            </Button>
+            <ComboBox x:Name="cbPhongBanUpdateOrder" Margin="256,103,566,511" Foreground="Black">
+
+            </ComboBox>
+            <ComboBox x:Name="cbChucVuUpdateOrder" Margin="257,166,565,448" Foreground="Black">
+
+            </ComboBox>
+            <RadioButton x:Name="rbNamUpdatelOrder" Content="Nam" GroupName="GioiTinh" Margin="260,216,745,399" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontSize="16" IsChecked="True" />
+            <RadioButton x:Name="rbNuUpdateOrder" Content="Nữ" GroupName="GioiTinh" Margin="378,218,633,401" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontSize="16" />
+            <DatePicker x:Name="ngaySinhUpdateOrder" Margin="256,271,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="319" Text="Chọn ngày sinh"/>
+        </Grid>
+        <!--Nhánh 8 Danh sách Quyền-->
+        <Grid x:Name="gridNhanh8_0" Margin="304,120,49,629" Panel.ZIndex="100" Visibility="Hidden">
+            <Border Background="#FF3B862B">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Width="996">
+                    <Label Content="Mã quyền" Foreground="White" Width="230" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                    <Label Content="Tên quyền" Foreground="White" Width="201" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid x:Name="gridNhanh8_1" Margin="304,120,31,38" Visibility="Hidden">
+            <Border BorderBrush="White" CornerRadius="10" Margin="-18,0,0,0"/>
+            <ScrollViewer x:Name="scrollViewDataQuyen" VerticalScrollBarVisibility="Auto" Margin="0,39,0,0">
+                <WrapPanel>
+                    <Border Width="1050" Height="60" Background="#FFEC1515" Margin="0,20,0,0" CornerRadius="10" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="27,0,0,0" Width="991">
+                            <Label Content="Label 1" Foreground="White" Width="231" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                            <Label Content="Label 2" Foreground="White" Width="201" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                        </StackPanel>
+                    </Border>
+                </WrapPanel>
+            </ScrollViewer>
+        </Grid>
+        <!--Nhánh 9 Danh sách chức vụ-->
+        <Grid x:Name="gridNhanh9_0" Margin="304,120,49,629" Panel.ZIndex="100" Visibility="Hidden">
+            <Border Background="#FF3B862B">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Width="996">
+                    <Label Content="Mã chức vụ" Foreground="White" Width="230" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                    <Label Content="Tên chức vụ" Foreground="White" Width="201" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                    <Button Content="Thêm chức vụ" Width="129" Click="Button_Click_7"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid x:Name="gridNhanh9_1" Margin="304,120,31,38" Visibility="Hidden">
+            <Border BorderBrush="White" CornerRadius="10" Margin="-18,0,0,0"/>
+            <ScrollViewer x:Name="scrollViewDataChucVu" VerticalScrollBarVisibility="Auto" Margin="0,39,0,0">
+                <WrapPanel>
+                    <Border Width="1050" Height="60" Background="#FFEC1515" Margin="0,20,0,0" CornerRadius="10" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="27,0,0,0" Width="991">
+                            <Label Content="Label 1" Foreground="White" Width="231" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                            <Label Content="Label 2" Foreground="White" Width="201" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                            <Button Content="Click me" Width="129"/>
+                        </StackPanel>
+                    </Border>
+                </WrapPanel>
+            </ScrollViewer>
+        </Grid>
+        <!--Nhánh 10 Danh sách Phòng ban-->
+        <Grid x:Name="gridNhanh10_0" Margin="304,120,49,629" Panel.ZIndex="100" Visibility="Hidden">
+            <Border Background="#FF3B862B">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Width="996">
+                    <Label Content="Mã phòng ban" Foreground="White" Width="230" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                    <Label Content="Tên phòng ban" Foreground="White" Width="201" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                    <Button Content="Thêm phòng ban" Width="129" Click="Button_Click_7"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid x:Name="gridNhanh10_1" Margin="304,120,31,38" Visibility="Hidden">
+            <Border BorderBrush="White" CornerRadius="10" Margin="-18,0,0,0"/>
+            <ScrollViewer x:Name="scrollViewDataPhongBan" VerticalScrollBarVisibility="Auto" Margin="0,39,0,0">
+                <WrapPanel>
+                    <Border Width="1050" Height="60" Background="#FFEC1515" Margin="0,20,0,0" CornerRadius="10" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="27,0,0,0" Width="991">
+                            <Label Content="Label 1" Foreground="White" Width="231" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                            <Label Content="Label 2" Foreground="White" Width="201" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="14"/>
+                            <Button Content="Click me" Width="129"/>
+                        </StackPanel>
+                    </Border>
+                </WrapPanel>
+            </ScrollViewer>
+        </Grid>
+        
     </Grid>
 </Window>
