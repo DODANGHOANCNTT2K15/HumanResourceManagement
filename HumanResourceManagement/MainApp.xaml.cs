@@ -16,6 +16,7 @@ using System.Data;
 using HumanResourceManagement.ClassStore;
 using System.Security.Cryptography;
 using System.Globalization;
+using System.Runtime.Remoting.Messaging;
 
 
 namespace HumanResourceManagement
@@ -29,15 +30,39 @@ namespace HumanResourceManagement
     {
         SqlConnection conn = new SqlConnection(@"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False");
         NhanVien _nhanVienCurrent = new NhanVien();
+
         public MainApp(NhanVien nhanVienCurrent)
         {
             InitializeComponent();
             txtNhanVienCurrent.Content = nhanVienCurrent.TenNV;
             _nhanVienCurrent = nhanVienCurrent;
             txtMainTitle.Content = "TRANG CHÍNH";
+            if(_nhanVienCurrent.GioiTinh == true)
+            {
+                BitmapImage newImage = new BitmapImage(new Uri("/Assent/Picture/newUserNam.png", UriKind.Relative));
+                
+            }
         }
 
-        private void GetDuLieuTuBangKhac(string query, TextBlock txtB)
+        private void GetDuLieuTuBangKhac(string query, TextBox txtB)
+        {
+            using (SqlConnection conn = new SqlConnection(@"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False"))
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            txtB.Text = dataReader.GetString(0);
+                        }
+                    }
+                }
+                conn.Close();
+            }
+        }
+        private void GetDuLieuTuBangKhac_Phu(string query, TextBlock txtB)
         {
             using (SqlConnection conn = new SqlConnection(@"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False"))
             {
@@ -99,16 +124,33 @@ namespace HumanResourceManagement
             gridNhanh2_0.Visibility = Visibility.Hidden;
             gridNhanh2_1.Visibility = Visibility.Hidden;
             gridNhanh3.Visibility = Visibility.Visible;
+            gridNhanh3_ThongTinCaNhan.Visibility = Visibility.Visible;
+            gridNhanh3_LuongCaNhan.Visibility = Visibility.Hidden; 
             gridNhanh4.Visibility = Visibility.Hidden;
             gridNhanh5.Visibility = Visibility.Hidden;
             gridNhanh6.Visibility = Visibility.Hidden;
             gridNhanh7.Visibility = Visibility.Hidden;
             gridNhanh8_0.Visibility = Visibility.Hidden;
             gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
             gridNhanh9_0.Visibility = Visibility.Hidden;
             gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
             gridNhanh10_0.Visibility = Visibility.Hidden;
             gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
+
+
+            if (_nhanVienCurrent.GioiTinh == true)
+            {
+                BitmapImage newImage = new BitmapImage(new Uri("Assent/Picture/userNam.png", UriKind.Relative));
+                imgPersonal.Fill = new ImageBrush { ImageSource = newImage };
+            }
+            else
+            {
+                BitmapImage newImage = new BitmapImage(new Uri("Assent/Picture/userNu.png", UriKind.Relative));
+                imgPersonal.Fill = new ImageBrush { ImageSource = newImage };
+            }
 
             txtBMaNV.Text = _nhanVienCurrent.MaNV.ToString();
             txtBTenNV.Text = _nhanVienCurrent.TenNV.ToString();
@@ -152,10 +194,13 @@ namespace HumanResourceManagement
             gridNhanh7.Visibility = Visibility.Hidden;
             gridNhanh8_0.Visibility = Visibility.Hidden;
             gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
             gridNhanh9_0.Visibility = Visibility.Hidden;
             gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
             gridNhanh10_0.Visibility = Visibility.Hidden;
             gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
             txtMainTitle.Content = "TRANG CHÍNH";
         }
 
@@ -173,10 +218,13 @@ namespace HumanResourceManagement
             gridNhanh7.Visibility = Visibility.Hidden;
             gridNhanh8_0.Visibility = Visibility.Hidden;
             gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
             gridNhanh9_0.Visibility = Visibility.Hidden;
             gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
             gridNhanh10_0.Visibility = Visibility.Hidden;
             gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
 
 
             conn.Open();
@@ -208,7 +256,7 @@ namespace HumanResourceManagement
                 {
                     Width = 1050,
                     Height = 60,
-                    Background = new SolidColorBrush(Color.FromRgb(236, 21, 21)),
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF104A43")),
                     Margin = new Thickness(0, 20, 0, 0),
                     CornerRadius = new CornerRadius(10),
                     HorizontalAlignment = HorizontalAlignment.Left,
@@ -288,7 +336,7 @@ namespace HumanResourceManagement
                 };
                 Button button1 = new Button
                 {
-                    Content = "Chỉnh sửa",
+                    Content = "Chi tiết",
                     Width = 70,
                 };
                 button1.Click += (s, args) => Button_Click_10(sender, e, nhanVien.MaNV);
@@ -366,10 +414,13 @@ namespace HumanResourceManagement
             gridNhanh7.Visibility = Visibility.Hidden;
             gridNhanh8_0.Visibility = Visibility.Hidden;
             gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
             gridNhanh9_0.Visibility = Visibility.Hidden;
             gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
             gridNhanh10_0.Visibility = Visibility.Hidden;
             gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
 
             txtBEMANV.Text = _nhanVienCurrent.MaNV.ToString();
             txtBETENNV.Text = _nhanVienCurrent.TenNV.ToString();
@@ -380,7 +431,7 @@ namespace HumanResourceManagement
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
             string query = "SELECT TENPB, MAPB FROM tb_PHONGBAN";
 
-
+            cbPhongBanUpdatePersonal.Items.Clear();
             if (cbPhongBanUpdatePersonal.Items.Count == 0)
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -413,7 +464,8 @@ namespace HumanResourceManagement
                 }
 
             }
-            if(cbChucVuUpdatePersonal.Items.Count == 0)
+            cbChucVuUpdatePersonal.Items.Clear();
+            if (cbChucVuUpdatePersonal.Items.Count == 0)
             {
                 string query1 = "SELECT TENCV, MACV FROM tb_CHUCVU";
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -510,14 +562,18 @@ namespace HumanResourceManagement
             gridNhanh7.Visibility = Visibility.Hidden;
             gridNhanh8_0.Visibility = Visibility.Hidden;
             gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
             gridNhanh9_0.Visibility = Visibility.Hidden;
             gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;    
             gridNhanh10_0.Visibility = Visibility.Hidden;
             gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
 
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
             string query = "SELECT TENPB, MAPB FROM tb_PHONGBAN";
 
+            cbPhongBan.Items.Clear();
             if (cbPhongBan.Items.Count == 0)
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -543,6 +599,7 @@ namespace HumanResourceManagement
                 }
             }
             
+            cbChucVu.Items.Clear();
             if(cbChucVu.Items.Count == 0)
             {
                 string query1 = "SELECT TENCV, MACV FROM tb_CHUCVU";
@@ -582,10 +639,13 @@ namespace HumanResourceManagement
             gridNhanh7.Visibility = Visibility.Hidden;
             gridNhanh8_0.Visibility = Visibility.Hidden;
             gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
             gridNhanh9_0.Visibility = Visibility.Hidden;
             gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
             gridNhanh10_0.Visibility = Visibility.Hidden;
             gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
         }
 
         // nút hủy cho nhánh 4 cập nhận thông tin cá nhân
@@ -601,10 +661,13 @@ namespace HumanResourceManagement
             gridNhanh7.Visibility = Visibility.Hidden;
             gridNhanh8_0.Visibility = Visibility.Hidden;
             gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
             gridNhanh9_0.Visibility = Visibility.Hidden;
             gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
             gridNhanh10_0.Visibility = Visibility.Hidden;
             gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
         }
 
         // xem thông tin của nhân viên khác 
@@ -620,10 +683,13 @@ namespace HumanResourceManagement
             gridNhanh7.Visibility = Visibility.Hidden;
             gridNhanh8_0.Visibility = Visibility.Hidden;
             gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
             gridNhanh9_0.Visibility = Visibility.Hidden;
             gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
             gridNhanh10_0.Visibility = Visibility.Hidden;
             gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
 
             buttonEditOrderNV.Tag = maNV;
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
@@ -655,7 +721,19 @@ namespace HumanResourceManagement
                                         "JOIN tb_QUYEN p ON n.MAQUYEN = p.MAQUYEN " +// Kết nối hai bảng dựa trên cột MAPB
                                         "WHERE n.MANV = '" + maNV + "'";
                         GetDuLieuTuBangKhac(query3, txtBQuyenO);
-                        if (bool.Parse(reader["GIOITINH"].ToString()) == false) { txtBGTO.Text = "Nữ"; } else { txtBGTO.Text = "Nam"; }
+                        if (bool.Parse(reader["GIOITINH"].ToString()) == false) 
+                        { 
+                            txtBGTO.Text = "Nữ";
+                            BitmapImage newImage = new BitmapImage(new Uri("Assent/Picture/userNu.png", UriKind.Relative));
+                            imgPersonalUser.Fill = new ImageBrush { ImageSource = newImage, TileMode = TileMode.Tile };
+
+                        }
+                        else
+                        { 
+                            txtBGTO.Text = "Nam";
+                            BitmapImage newImage = new BitmapImage(new Uri("Assent/Picture/userNam.png", UriKind.Relative));
+                            imgPersonalUser.Fill = new ImageBrush { ImageSource = newImage, TileMode = TileMode.Tile };
+                        }
                         txtBDCO.Text = reader["DIACHI"].ToString();
                         txtBSDTO.Text = reader["DIENTHOAI"].ToString();
                         txtBNSO.Text = reader.GetDateTime(3).ToString("dd/MM/yyyy");
@@ -712,7 +790,7 @@ namespace HumanResourceManagement
                             {
                                 Width = 1050,
                                 Height = 60,
-                                Background = new SolidColorBrush(Color.FromRgb(236, 21, 21)),
+                                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF104A43")),
                                 Margin = new Thickness(0, 20, 0, 0),
                                 CornerRadius = new CornerRadius(10),
                                 HorizontalAlignment = HorizontalAlignment.Left,
@@ -850,13 +928,16 @@ namespace HumanResourceManagement
             gridNhanh7.Visibility = Visibility.Hidden;
             gridNhanh8_0.Visibility = Visibility.Hidden;
             gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
             gridNhanh9_0.Visibility = Visibility.Hidden;
             gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
             gridNhanh10_0.Visibility = Visibility.Hidden;
             gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
         }
 
-
+        // nút hiện nhánh 7
         private void Button_Click_14(object sender, RoutedEventArgs e)
         {
             gridNhanh1.Visibility = Visibility.Hidden;
@@ -869,10 +950,13 @@ namespace HumanResourceManagement
             gridNhanh7.Visibility = Visibility.Visible;
             gridNhanh8_0.Visibility = Visibility.Hidden;
             gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
             gridNhanh9_0.Visibility = Visibility.Hidden;
             gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
             gridNhanh10_0.Visibility = Visibility.Hidden;
             gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
 
 
             int maNV = (int)buttonEditOrderNV.Tag;
@@ -902,8 +986,8 @@ namespace HumanResourceManagement
                     conn.Close();
                 }
             }
-            
 
+            cbPhongBanUpdateOrder.Items.Clear();
             if (cbPhongBanUpdateOrder.Items.Count == 0)
             {
                 string query1 = "SELECT TENPB, MAPB FROM tb_PHONGBAN";
@@ -937,6 +1021,7 @@ namespace HumanResourceManagement
                 }
 
             }
+            cbChucVuUpdateOrder.Items.Clear();
             if (cbChucVuUpdateOrder.Items.Count == 0)
             {
                 string query2 = "SELECT TENCV, MACV FROM tb_CHUCVU";
@@ -971,6 +1056,7 @@ namespace HumanResourceManagement
             
         }
 
+        // nút xác nhật cập nhật nhân viên
         private void Button_Click_15(object sender, RoutedEventArgs e)
         {
             int maNV = (int)buttonUpdateOrder.Tag;
@@ -1007,25 +1093,1445 @@ namespace HumanResourceManagement
 
         }
 
+        // danh sách phân quyền 
         private void Button_Click_16(object sender, RoutedEventArgs e)
         {
             txtMainTitle.Content = "DANH SÁCH PHÂN QUYỀN";
 
+            gridNhanh1.Visibility = Visibility.Hidden;
+            gridNhanh2_0.Visibility = Visibility.Hidden;
+            gridNhanh2_1.Visibility = Visibility.Hidden;
+            gridNhanh3.Visibility = Visibility.Hidden;
+            gridNhanh4.Visibility = Visibility.Hidden;
+            gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Visible;
+            gridNhanh8_1.Visibility = Visibility.Visible;
+            gridNhanh8_3.Visibility = Visibility.Visible;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
+
+            conn.Open();
+            string sql = "SELECT * FROM tb_QUYEN";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<Quyen> sqlValues = new List<Quyen>();
+
+            while (reader.Read())
+            {
+                
+
+                Quyen newQuyen = new Quyen();
+                newQuyen.MaQuyen = int.Parse(reader["MAQUYEN"].ToString());
+                newQuyen.TenQuyen = reader["TENQUYEN"].ToString();
+                sqlValues.Add(newQuyen);
+            }
+            // Tạo một WrapPanel
+            WrapPanel wrapPanel = new WrapPanel();
+
+            foreach (Quyen quyen in sqlValues)
+            {
+                // Tạo một Border mới
+                Border border = new Border
+                {
+                    Width = 1050,
+                    Height = 60,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF104A43")),
+                    Margin = new Thickness(0, 20, 0, 0),
+                    CornerRadius = new CornerRadius(10),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                // Tạo một StackPanel mới
+                StackPanel stackPanel = new StackPanel
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Orientation = Orientation.Horizontal,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(27, 0, 0, 0),
+                    Width = 991
+                };
+
+
+                // Tạo một Label mới và gán giá trị từ SQL vào Content
+
+                Label label = new Label
+                {
+
+                    Content = quyen.MaQuyen,
+                    Foreground = Brushes.White,
+                    Width = 231,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+                Label label1 = new Label
+                {
+                    Content = quyen.TenQuyen,
+                    Foreground = Brushes.White,
+                    Width = 201,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+                
+                stackPanel.Children.Add(label);
+                stackPanel.Children.Add(label1);
+               
+                // Thêm StackPanel vào Border
+                border.Child = stackPanel;
+
+                // Thêm Border vào WrapPanel
+                wrapPanel.Children.Add(border);
+            }
+
+            // Thêm WrapPanel vào ScrollViewer
+            scrollViewDataQuyen.Content = wrapPanel;
+            conn.Close();
+
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            // thêm quyền vào combox
+            string query3 = "SELECT TENQUYEN, MAQUYEN FROM tb_QUYEN";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query3, conn))
+                {
+                    conn.Open();
+                    SqlDataReader reader1 = command.ExecuteReader();
+
+                    cbPhanQuyen.Items.Clear();
+
+                    while (reader1.Read())
+                    {
+                        ComboBoxItem item = new ComboBoxItem
+                        {
+                            Content = reader1["TENQUYEN"].ToString(),
+                            Tag = reader1["MAQUYEN"].ToString()
+                        };
+                        cbPhanQuyen.Items.Add(item);
+                    }
+
+                    conn.Close();
+                }
+            }
+
+            //Thêm nhân viên vào combox
+            string query4 = "SELECT TENNV, MANV FROM tb_NHANVIEN";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query4, conn))
+                {
+                    conn.Open();
+                    SqlDataReader reader1 = command.ExecuteReader();
+
+                    cbPhanQuyenNV.Items.Clear();
+
+                    while (reader1.Read())
+                    {
+                        ComboBoxItem item = new ComboBoxItem
+                        {
+                            Content = reader1["TENNV"].ToString(),
+                            Tag = reader1["MANV"].ToString()
+                        };
+                        cbPhanQuyenNV.Items.Add(item);
+                    }
+
+                    conn.Close();
+                }
+            }
+
+
         }
 
+        // danh sách chức vụ
         private void Button_Click_17(object sender, RoutedEventArgs e)
         {
             txtMainTitle.Content = "DANH SÁCH CHỨC VỤ";
+
+            gridNhanh1.Visibility = Visibility.Hidden;
+            gridNhanh2_0.Visibility = Visibility.Hidden;
+            gridNhanh2_1.Visibility = Visibility.Hidden;
+            gridNhanh3.Visibility = Visibility.Hidden;
+            gridNhanh4.Visibility = Visibility.Hidden;
+            gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Visible;
+            gridNhanh9_1.Visibility = Visibility.Visible;
+            gridNhanh9_3.Visibility = Visibility.Visible;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
+
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+
+            cbUpdateSelectCV.Items.Clear();
+            if (cbUpdateSelectCV.Items.Count == 0)
+            {
+                string query1 = "SELECT TENCV, MACV FROM tb_CHUCVU";
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query1, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader1 = command.ExecuteReader();
+
+                        while (reader1.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader1["TENCV"].ToString(),
+                                Tag = reader1["MACV"].ToString()
+                            };
+                            cbUpdateSelectCV.Items.Add(item);
+                        }
+
+                        conn.Close();
+                    }
+                }
+            }
+
+            conn.Open();
+            string sql = "SELECT * FROM tb_CHUCVU";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<ChucVu> sqlValues = new List<ChucVu>();
+
+            while (reader.Read())
+            {
+                ChucVu newChucVu = new ChucVu();
+                newChucVu.MaCV = int.Parse(reader["MACV"].ToString());
+                newChucVu.TenCV = reader["TENCV"].ToString();
+                sqlValues.Add(newChucVu);
+            }
+            // Tạo một WrapPanel
+            WrapPanel wrapPanel = new WrapPanel();
+
+            foreach (ChucVu newChucVu in sqlValues)
+            {
+                // Tạo một Border mới
+                Border border = new Border
+                {
+                    Width = 711,
+                    Height = 60,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF104A43")),
+                    Margin = new Thickness(0, 20, 0, 0),
+                    CornerRadius = new CornerRadius(10),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                // Tạo một StackPanel mới
+                StackPanel stackPanel = new StackPanel
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Orientation = Orientation.Horizontal,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(27, 0, 0, 0),
+                    Width = 991
+                };
+
+
+                // Tạo một Label mới và gán giá trị từ SQL vào Content
+
+                Label label = new Label
+                {
+
+                    Content = newChucVu.MaCV,
+                    Foreground = Brushes.White,
+                    Width = 231,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+                
+                Label label1 = new Label
+                {
+                    Content = newChucVu.TenCV,
+                    Foreground = Brushes.White,
+                    Width = 201,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+
+                Button button2 = new Button
+                {
+                    Content = "Xóa",
+                    Width = 60,
+                };
+                button2.Click += (s1, args1) => Button_Click_21(sender, e, newChucVu.MaCV);
+                // Thêm Label vào StackPanel
+                stackPanel.Children.Add(label);
+                stackPanel.Children.Add(label1);
+                stackPanel.Children.Add(button2);
+                // Thêm StackPanel vào Border
+                border.Child = stackPanel;
+
+                // Thêm Border vào WrapPanel
+                wrapPanel.Children.Add(border);
+            }
+
+            // Thêm WrapPanel vào ScrollViewer
+            scrollViewDataChucVu.Content = wrapPanel;
+            conn.Close();
+
+            string query2 = "SELECT TENCV, MACV FROM tb_CHUCVU";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query2, conn))
+                {
+                    conn.Open();
+                    SqlDataReader reader1 = command.ExecuteReader();
+
+                    cbUpdateSelectCV.Items.Clear();
+
+                    while (reader1.Read())
+                    {
+                        ComboBoxItem item = new ComboBoxItem
+                        {
+                            Content = reader1["TENCV"].ToString(),
+                            Tag = reader1["MACV"].ToString()
+                        };
+                        cbUpdateSelectCV.Items.Add(item);
+                    }
+
+                    conn.Close();
+                }
+            }
+
         }
 
+        // danh sách phòng ban
         private void Button_Click_18(object sender, RoutedEventArgs e)
         {
             txtMainTitle.Content = "DANH SÁCH PHÒNG BAN";
+
+            gridNhanh1.Visibility = Visibility.Hidden;
+            gridNhanh2_0.Visibility = Visibility.Hidden;
+            gridNhanh2_1.Visibility = Visibility.Hidden;
+            gridNhanh3.Visibility = Visibility.Hidden;
+            gridNhanh4.Visibility = Visibility.Hidden;
+            gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Hidden;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Visible;
+            gridNhanh10_1.Visibility = Visibility.Visible;
+            gridNhanh10_3.Visibility = Visibility.Visible;
+
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "SELECT TENPB, MAPB FROM tb_PHONGBAN";
+
+            cbUpdateSelectPB.Items.Clear();
+            if (cbUpdateSelectPB.Items.Count == 0)
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader1 = command.ExecuteReader();
+
+                        while (reader1.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader1["TENPB"].ToString(),
+                                Tag = reader1["MAPB"].ToString()
+                            };
+
+                            cbUpdateSelectPB.Items.Add(item);
+                        }
+
+                        conn.Close();
+                    }
+                }
+            }
+
+            conn.Open();
+            string sql = "SELECT * FROM tb_PHONGBAN";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<PhongBan> sqlValues = new List<PhongBan>();
+
+            while (reader.Read())
+            {
+                PhongBan newPhongBan = new PhongBan();
+                newPhongBan.MaPB = int.Parse(reader["MAPB"].ToString());
+                newPhongBan.TenPB = reader["TENPB"].ToString();
+                sqlValues.Add(newPhongBan); 
+            }
+            // Tạo một WrapPanel
+            WrapPanel wrapPanel = new WrapPanel();
+
+            foreach (PhongBan phongBan in sqlValues)
+            {   
+                // Tạo một Border mới
+                Border border = new Border
+                {
+                    Width = 1050,
+                    Height = 60,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF104A43")),
+                    Margin = new Thickness(0, 20, 0, 0),
+                    CornerRadius = new CornerRadius(10),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                // Tạo một StackPanel mới
+                StackPanel stackPanel = new StackPanel
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Orientation = Orientation.Horizontal,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(27, 0, 0, 0),
+                    Width = 991
+                };
+
+
+                // Tạo một Label mới và gán giá trị từ SQL vào Content
+
+                Label label = new Label
+                {
+
+                    Content = phongBan.MaPB,
+                    Foreground = Brushes.White,
+                    Width = 231,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+                Label label1 = new Label
+                {
+                    Content = phongBan.TenPB,
+                    Foreground = Brushes.White,
+                    Width = 201,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+           
+
+                Button button2 = new Button
+                {
+                    Content = "Xóa",
+                    Width = 60,
+                };
+                button2.Click += (s1, args1) => Button_Click_24(sender, e, phongBan.MaPB);
+                // Thêm Label vào StackPanel
+                stackPanel.Children.Add(label);
+                stackPanel.Children.Add(label1);
+                stackPanel.Children.Add(button2);
+                // Thêm StackPanel vào Border
+                border.Child = stackPanel;
+
+                // Thêm Border vào WrapPanel
+                wrapPanel.Children.Add(border);
+            }
+
+            // Thêm WrapPanel vào ScrollViewer
+            scrollViewDataPhongBan.Content = wrapPanel;
+            conn.Close();
         }
 
+        // phần chấm công
         private void Button_Click_19(object sender, RoutedEventArgs e)
         {
             txtMainTitle.Content = "CHẤM CÔNG";
+
+            gridNhanh1.Visibility = Visibility.Hidden;
+            gridNhanh2_0.Visibility = Visibility.Hidden;
+            gridNhanh2_1.Visibility = Visibility.Hidden;
+            gridNhanh3.Visibility = Visibility.Hidden;
+            gridNhanh4.Visibility = Visibility.Hidden;
+            gridNhanh5.Visibility = Visibility.Hidden;
+            gridNhanh6.Visibility = Visibility.Hidden;
+            gridNhanh7.Visibility = Visibility.Visible;
+            gridNhanh8_0.Visibility = Visibility.Hidden;
+            gridNhanh8_1.Visibility = Visibility.Hidden;
+            gridNhanh8_3.Visibility = Visibility.Hidden;
+            gridNhanh9_0.Visibility = Visibility.Hidden;
+            gridNhanh9_1.Visibility = Visibility.Hidden;
+            gridNhanh9_3.Visibility = Visibility.Hidden;
+            gridNhanh10_0.Visibility = Visibility.Hidden;
+            gridNhanh10_1.Visibility = Visibility.Hidden;
+            gridNhanh10_3.Visibility = Visibility.Hidden;
+
+        }
+
+ 
+        //xác nhận chỉnh sửa chức vụ
+        private void Button_Click_20_1(object sender, RoutedEventArgs e) 
+        {
+            ComboBoxItem selectedCV = (ComboBoxItem)cbUpdateSelectCV.SelectedItem;
+            int maCV = int.Parse(selectedCV.Tag.ToString());
+
+
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "UPDATE tb_CHUCVU SET TENCV = @tenCV WHERE MACV = @maCV";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("maCV", maCV);
+                    command.Parameters.AddWithValue("@tenCV", txtUPDATECV.Text);
+
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Cập nhật thành công !");
+                    conn.Close();
+                }
+            }
+            conn.Open();
+            string sql = "SELECT * FROM tb_CHUCVU";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<ChucVu> sqlValues = new List<ChucVu>();
+
+            while (reader.Read())
+            {
+                ChucVu newChucVu = new ChucVu();
+                newChucVu.MaCV = int.Parse(reader["MACV"].ToString());
+                newChucVu.TenCV = reader["TENCV"].ToString();
+                sqlValues.Add(newChucVu);
+            }
+            // Tạo một WrapPanel
+            WrapPanel wrapPanel = new WrapPanel();
+
+            foreach (ChucVu newChucVu in sqlValues)
+            {
+                // Tạo một Border mới
+                Border border = new Border
+                {
+                    Width = 711,
+                    Height = 60,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF104A43")),
+                    Margin = new Thickness(0, 20, 0, 0),
+                    CornerRadius = new CornerRadius(10),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                // Tạo một StackPanel mới
+                StackPanel stackPanel = new StackPanel
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Orientation = Orientation.Horizontal,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(27, 0, 0, 0),
+                    Width = 991
+                };
+
+
+                // Tạo một Label mới và gán giá trị từ SQL vào Content
+
+                Label label = new Label
+                {
+
+                    Content = newChucVu.MaCV,
+                    Foreground = Brushes.White,
+                    Width = 231,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+
+                Label label1 = new Label
+                {
+                    Content = newChucVu.TenCV,
+                    Foreground = Brushes.White,
+                    Width = 201,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+
+                Button button2 = new Button
+                {
+                    Content = "Xóa",
+                    Width = 60,
+                };
+                button2.Click += (s1, args1) => Button_Click_21(sender, e, newChucVu.MaCV);
+                // Thêm Label vào StackPanel
+                stackPanel.Children.Add(label);
+                stackPanel.Children.Add(label1);
+                stackPanel.Children.Add(button2);
+                // Thêm StackPanel vào Border
+                border.Child = stackPanel;
+
+                // Thêm Border vào WrapPanel
+                wrapPanel.Children.Add(border);
+            }
+
+            // Thêm WrapPanel vào ScrollViewer
+            scrollViewDataChucVu.Content = wrapPanel;
+            conn.Close();
+
+            cbUpdateSelectCV.Items.Clear();
+            string query1 = "SELECT TENCV, MACV FROM tb_CHUCVU";
+            if (cbUpdateSelectCV.Items.Count == 0)
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query1, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader1 = command.ExecuteReader();
+
+                        while (reader1.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader1["TENCV"].ToString(),
+                                Tag = reader1["MACV"].ToString()
+                            };
+
+                            cbUpdateSelectCV.Items.Add(item);
+                        }
+
+                        conn.Close();
+                    }
+                }
+            }
+
+        }
+        // Hủy chỉnh sửa chức vụ
+        private void Button_Click_20_2(object sender,  RoutedEventArgs e)
+        {
+            txtUPDATECV.Text = "Vui lòng nhập thông tin";
+        }
+
+        // button xóa chức vụ
+        private void Button_Click_21(object sender, RoutedEventArgs e, int maCV)
+        {
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "DELETE FROM tb_CHUCVU WHERE MACV = @maCV";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@maCV", maCV);
+
+                    MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn xóa chứ", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                        conn.Close();
+                        conn.Open();
+                    } 
+                }
+            }
+
+            conn.Open();
+            string sql = "SELECT * FROM tb_CHUCVU";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<ChucVu> sqlValues = new List<ChucVu>();
+
+            while (reader.Read())
+            {
+                ChucVu newChucVu = new ChucVu();
+                newChucVu.MaCV = int.Parse(reader["MACV"].ToString());
+                newChucVu.TenCV = reader["TENCV"].ToString();
+                sqlValues.Add(newChucVu);
+            }
+            // Tạo một WrapPanel
+            WrapPanel wrapPanel = new WrapPanel();
+
+            foreach (ChucVu newChucVu in sqlValues)
+            {
+                // Tạo một Border mới
+                Border border = new Border
+                {
+                    Width = 711,
+                    Height = 60,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF104A43")),
+                    Margin = new Thickness(0, 20, 0, 0),
+                    CornerRadius = new CornerRadius(10),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                // Tạo một StackPanel mới
+                StackPanel stackPanel = new StackPanel
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Orientation = Orientation.Horizontal,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(27, 0, 0, 0),
+                    Width = 991
+                };
+
+
+                // Tạo một Label mới và gán giá trị từ SQL vào Content
+
+                Label label = new Label
+                {
+
+                    Content = newChucVu.MaCV,
+                    Foreground = Brushes.White,
+                    Width = 231,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+
+                Label label1 = new Label
+                {
+                    Content = newChucVu.TenCV,
+                    Foreground = Brushes.White,
+                    Width = 201,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+
+                Button button2 = new Button
+                {
+                    Content = "Xóa",
+                    Width = 60,
+                };
+                button2.Click += (s1, args1) => Button_Click_21(sender, e, newChucVu.MaCV);
+                // Thêm Label vào StackPanel
+                stackPanel.Children.Add(label);
+                stackPanel.Children.Add(label1);
+                stackPanel.Children.Add(button2);
+                // Thêm StackPanel vào Border
+                border.Child = stackPanel;
+
+                // Thêm Border vào WrapPanel
+                wrapPanel.Children.Add(border);
+            }
+
+            // Thêm WrapPanel vào ScrollViewer
+            scrollViewDataChucVu.Content = wrapPanel;
+            conn.Close();
+
+            cbUpdateSelectCV.Items.Clear();
+            string query1 = "SELECT TENCV, MACV FROM tb_CHUCVU";
+            if (cbUpdateSelectCV.Items.Count == 0)
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query1, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader1 = command.ExecuteReader();
+
+                        while (reader1.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader1["TENCV"].ToString(),
+                                Tag = reader1["MACV"].ToString()
+                            };
+
+                            cbUpdateSelectCV.Items.Add(item);
+                        }
+
+                        conn.Close();
+                    }
+                }
+            }
+        }
+        // Xác nhận thêm chức vụ
+        private void Button_Click_22_1(object sender, RoutedEventArgs e)
+        {
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "INSERT INTO tb_CHUCVU (TENCV) VALUES (@tenCV)";
+
+            if (txtADDCV.Text == "Vui lòng nhập thông tin")
+            {
+                erroInputAddCV.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                erroInputAddCV.Visibility = Visibility.Hidden;
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@tenCV", txtADDCV.Text);
+   
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Thêm chức vụ thành công !");
+                        conn.Close();
+                    }
+                }
+                conn.Open();
+                string sql = "SELECT * FROM tb_CHUCVU";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                List<ChucVu> sqlValues = new List<ChucVu>();
+
+                while (reader.Read())
+                {
+                    ChucVu newChucVu = new ChucVu();
+                    newChucVu.MaCV = int.Parse(reader["MACV"].ToString());
+                    newChucVu.TenCV = reader["TENCV"].ToString();
+                    sqlValues.Add(newChucVu);
+                }
+                // Tạo một WrapPanel
+                WrapPanel wrapPanel = new WrapPanel();
+
+                foreach (ChucVu newChucVu in sqlValues)
+                {
+                    // Tạo một Border mới
+                    Border border = new Border
+                    {
+                        Width = 711,
+                        Height = 60,
+                        Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF104A43")),
+                        Margin = new Thickness(0, 20, 0, 0),
+                        CornerRadius = new CornerRadius(10),
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+
+                    // Tạo một StackPanel mới
+                    StackPanel stackPanel = new StackPanel
+                    {
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Orientation = Orientation.Horizontal,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Margin = new Thickness(27, 0, 0, 0),
+                        Width = 991
+                    };
+
+
+                    // Tạo một Label mới và gán giá trị từ SQL vào Content
+
+                    Label label = new Label
+                    {
+
+                        Content = newChucVu.MaCV,
+                        Foreground = Brushes.White,
+                        Width = 231,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        FontFamily = new FontFamily("Bahnschrift"),
+                        FontSize = 14
+                    };
+
+
+                    Label label1 = new Label
+                    {
+                        Content = newChucVu.TenCV,
+                        Foreground = Brushes.White,
+                        Width = 201,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        FontFamily = new FontFamily("Bahnschrift"),
+                        FontSize = 14
+                    };
+
+
+                    Button button2 = new Button
+                    {
+                        Content = "Xóa",
+                        Width = 60,
+                    };
+                    button2.Click += (s1, args1) => Button_Click_21(sender, e, newChucVu.MaCV);
+                    // Thêm Label vào StackPanel
+                    stackPanel.Children.Add(label);
+                    stackPanel.Children.Add(label1);
+                    stackPanel.Children.Add(button2);
+                    // Thêm StackPanel vào Border
+                    border.Child = stackPanel;
+
+                    // Thêm Border vào WrapPanel
+                    wrapPanel.Children.Add(border);
+                }
+
+                // Thêm WrapPanel vào ScrollViewer
+                scrollViewDataChucVu.Content = wrapPanel;
+                conn.Close();
+            }
+
+            cbUpdateSelectCV.Items.Clear();
+            string query1 = "SELECT TENCV, MACV FROM tb_CHUCVU";
+            if (cbUpdateSelectCV.Items.Count == 0)
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query1, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader1 = command.ExecuteReader();
+
+                        while (reader1.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader1["TENCV"].ToString(),
+                                Tag = reader1["MACV"].ToString()
+                            };
+
+                            cbUpdateSelectCV.Items.Add(item);
+                        }
+
+                        conn.Close();
+                    }
+                }
+            }
+
+        }
+       
+        // hủy thêm chức vụ
+        private void Button_Click_22_2(object sender, RoutedEventArgs e)
+        {
+            txtADDCV.Text = "Vui lòng nhập thông tin";
+        }
+
+        //nút xác nhận chỉnh sửa phòng ban
+        private void Button_Click_23_1(object sender, RoutedEventArgs e) 
+        {
+           
+            ComboBoxItem selectedPB = (ComboBoxItem)cbUpdateSelectPB.SelectedItem;
+            int maPB = int.Parse(selectedPB.Tag.ToString());
+            
+
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "UPDATE tb_PHONGBAN SET TENPB = @tenPB WHERE MAPB = @maPB";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("maPB", maPB);
+                    command.Parameters.AddWithValue("@tenPB", txtUPDATEPB.Text);
+
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Cập nhật thành công !");
+                    conn.Close();
+                }
+            }
+
+            conn.Open();
+            string sql = "SELECT * FROM tb_PHONGBAN";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<PhongBan> sqlValues = new List<PhongBan>();
+
+            while (reader.Read())
+            {
+                PhongBan newPhongBan = new PhongBan();
+                newPhongBan.MaPB = int.Parse(reader["MAPB"].ToString());
+                newPhongBan.TenPB = reader["TENPB"].ToString();
+                sqlValues.Add(newPhongBan);
+            }
+            // Tạo một WrapPanel
+            WrapPanel wrapPanel = new WrapPanel();
+
+            foreach (PhongBan phongBan in sqlValues)
+            {
+                // Tạo một Border mới
+                Border border = new Border
+                {
+                    Width = 1050,
+                    Height = 60,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF104A43")),
+                    Margin = new Thickness(0, 20, 0, 0),
+                    CornerRadius = new CornerRadius(10),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                // Tạo một StackPanel mới
+                StackPanel stackPanel = new StackPanel
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Orientation = Orientation.Horizontal,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(27, 0, 0, 0),
+                    Width = 991
+                };
+
+
+                // Tạo một Label mới và gán giá trị từ SQL vào Content
+
+                Label label = new Label
+                {
+
+                    Content = phongBan.MaPB,
+                    Foreground = Brushes.White,
+                    Width = 231,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+                Label label1 = new Label
+                {
+                    Content = phongBan.TenPB,
+                    Foreground = Brushes.White,
+                    Width = 201,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+
+
+                Button button2 = new Button
+                {
+                    Content = "Xóa",
+                    Width = 60,
+                };
+                button2.Click += (s1, args1) => Button_Click_24(sender, e, phongBan.MaPB);
+                // Thêm Label vào StackPanel
+                stackPanel.Children.Add(label);
+                stackPanel.Children.Add(label1);
+                stackPanel.Children.Add(button2);
+                // Thêm StackPanel vào Border
+                border.Child = stackPanel;
+
+                // Thêm Border vào WrapPanel
+                wrapPanel.Children.Add(border);
+            }
+
+            // Thêm WrapPanel vào ScrollViewer
+            scrollViewDataPhongBan.Content = wrapPanel;
+            conn.Close();
+
+            string query1 = "SELECT TENPB, MAPB FROM tb_PHONGBAN";
+
+            cbUpdateSelectPB.Items.Clear();
+            if (cbUpdateSelectPB.Items.Count == 0)
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query1, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader1 = command.ExecuteReader();
+
+                        while (reader1.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader1["TENPB"].ToString(),
+                                Tag = reader1["MAPB"].ToString()
+                            };
+
+                            cbUpdateSelectPB.Items.Add(item);
+                        }
+
+                        conn.Close();
+                    }
+                }
+            }
+
+        }
+        //nút hủy chỉnh sửa phòng ban
+        private void Button_Click_23_2(object sender, RoutedEventArgs e) 
+        {
+            txtUPDATEPB.Text = "Vui lòng nhập thông tin";
+        }
+        //nút xóa phòng ban
+        private void Button_Click_24(object sender, RoutedEventArgs e, int maPB) 
+        {
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "DELETE FROM tb_PHONGBAN WHERE MAPB = @maPB";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@maPB", maPB);
+
+                    MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn xóa chứ", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                        conn.Close();
+                        conn.Open();
+                    }
+                }
+            }
+
+            conn.Open();
+            string sql = "SELECT * FROM tb_PHONGBAN";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<PhongBan> sqlValues = new List<PhongBan>();
+
+            while (reader.Read())
+            {
+                PhongBan newPhongBan = new PhongBan();
+                newPhongBan.MaPB = int.Parse(reader["MAPB"].ToString());
+                newPhongBan.TenPB = reader["TENPB"].ToString();
+                sqlValues.Add(newPhongBan);
+            }
+            // Tạo một WrapPanel
+            WrapPanel wrapPanel = new WrapPanel();
+
+            foreach (PhongBan phongBan in sqlValues)
+            {
+                // Tạo một Border mới
+                Border border = new Border
+                {
+                    Width = 1050,
+                    Height = 60,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF104A43")),
+                    Margin = new Thickness(0, 20, 0, 0),
+                    CornerRadius = new CornerRadius(10),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                // Tạo một StackPanel mới
+                StackPanel stackPanel = new StackPanel
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Orientation = Orientation.Horizontal,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(27, 0, 0, 0),
+                    Width = 991
+                };
+
+
+                // Tạo một Label mới và gán giá trị từ SQL vào Content
+
+                Label label = new Label
+                {
+
+                    Content = phongBan.MaPB,
+                    Foreground = Brushes.White,
+                    Width = 231,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+                Label label1 = new Label
+                {
+                    Content = phongBan.TenPB,
+                    Foreground = Brushes.White,
+                    Width = 201,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+                Button button2 = new Button
+                {
+                    Content = "Xóa",
+                    Width = 60,
+                };
+                button2.Click += (s1, args1) => Button_Click_24(sender, e, phongBan.MaPB);
+                // Thêm Label vào StackPanel
+                stackPanel.Children.Add(label);
+                stackPanel.Children.Add(label1);
+                stackPanel.Children.Add(button2);
+                // Thêm StackPanel vào Border
+                border.Child = stackPanel;
+
+                // Thêm Border vào WrapPanel
+                wrapPanel.Children.Add(border);
+            }
+
+            // Thêm WrapPanel vào ScrollViewer
+            scrollViewDataPhongBan.Content = wrapPanel;
+            conn.Close();
+
+            string query1 = "SELECT TENPB, MAPB FROM tb_PHONGBAN";
+
+            cbUpdateSelectPB.Items.Clear();
+            if (cbUpdateSelectPB.Items.Count == 0)
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query1, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader1 = command.ExecuteReader();
+
+                        while (reader1.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader1["TENPB"].ToString(),
+                                Tag = reader1["MAPB"].ToString()
+                            };
+
+                            cbUpdateSelectPB.Items.Add(item);
+                        }
+
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
+        //nút xác nhân thêm phòng ban
+        private void Button_Click_25_1(object sender, RoutedEventArgs e)
+        {
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "INSERT INTO tb_PHONGBAN (TENPB) VALUES (@tenPB)";
+
+            if (txtADDPB.Text == "Vui lòng nhập thông tin")
+            {
+                erroInputAddPB.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                erroInputAddPB.Visibility = Visibility.Hidden;
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@tenPB", txtADDPB.Text);
+
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Thêm phòng ban thành công !");
+                        conn.Close();
+                    }
+                }
+
+            }
+
+            conn.Open();
+            string sql = "SELECT * FROM tb_PHONGBAN";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<PhongBan> sqlValues = new List<PhongBan>();
+
+            while (reader.Read())
+            {
+                PhongBan newPhongBan = new PhongBan();
+                newPhongBan.MaPB = int.Parse(reader["MAPB"].ToString());
+                newPhongBan.TenPB = reader["TENPB"].ToString();
+                sqlValues.Add(newPhongBan);
+            }
+            // Tạo một WrapPanel
+            WrapPanel wrapPanel = new WrapPanel();
+
+            foreach (PhongBan phongBan in sqlValues)
+            {
+                // Tạo một Border mới
+                Border border = new Border
+                {
+                    Width = 1050,
+                    Height = 60,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF104A43")),
+                    Margin = new Thickness(0, 20, 0, 0),
+                    CornerRadius = new CornerRadius(10),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                // Tạo một StackPanel mới
+                StackPanel stackPanel = new StackPanel
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Orientation = Orientation.Horizontal,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(27, 0, 0, 0),
+                    Width = 991
+                };
+
+
+                // Tạo một Label mới và gán giá trị từ SQL vào Content
+
+                Label label = new Label
+                {
+
+                    Content = phongBan.MaPB,
+                    Foreground = Brushes.White,
+                    Width = 231,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+                Label label1 = new Label
+                {
+                    Content = phongBan.TenPB,
+                    Foreground = Brushes.White,
+                    Width = 201,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    FontSize = 14
+                };
+
+
+
+                Button button2 = new Button
+                {
+                    Content = "Xóa",
+                    Width = 60,
+                };
+                button2.Click += (s1, args1) => Button_Click_24(sender, e, phongBan.MaPB);
+                // Thêm Label vào StackPanel
+                stackPanel.Children.Add(label);
+                stackPanel.Children.Add(label1);
+                stackPanel.Children.Add(button2);
+                // Thêm StackPanel vào Border
+                border.Child = stackPanel;
+
+                // Thêm Border vào WrapPanel
+                wrapPanel.Children.Add(border);
+            }
+
+            // Thêm WrapPanel vào ScrollViewer
+            scrollViewDataPhongBan.Content = wrapPanel;
+            conn.Close();
+
+            string query1 = "SELECT TENPB, MAPB FROM tb_PHONGBAN";
+
+            cbUpdateSelectPB.Items.Clear();
+            if (cbUpdateSelectPB.Items.Count == 0)
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    using (SqlCommand command = new SqlCommand(query1, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader reader1 = command.ExecuteReader();
+
+                        while (reader1.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem
+                            {
+                                Content = reader1["TENPB"].ToString(),
+                                Tag = reader1["MAPB"].ToString()
+                            };
+
+                            cbUpdateSelectPB.Items.Add(item);
+                        }
+
+                        conn.Close();
+                    }
+                }
+            }
+        }
+        //nút hủy thêm phòng ban
+        private void Button_Click_25_2(object sender, RoutedEventArgs e) 
+        {
+            txtADDPB.Text = "Vui long nhập thông tin";
+        }
+
+        // nút phân quyền 
+        private void Button_Click_26_1(object sender, RoutedEventArgs e)
+        {
+            int maNV = int.Parse(((ComboBoxItem)cbPhanQuyenNV.SelectedItem).Tag.ToString());
+            int maQuyen = int.Parse(((ComboBoxItem)cbPhanQuyen.SelectedItem).Tag.ToString());
+
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            string query = "UPDATE tb_NHANVIEN SET MAQUYEN = @maQuyen WHERE MANV = @maNV";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    conn.Open();
+
+                    command.Parameters.AddWithValue("@maNV", maNV);
+                    command.Parameters.AddWithValue("@maQuyen", maQuyen);
+                    _nhanVienCurrent.MaQuyen = maQuyen;
+
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Phân quyền nhân viên thành công !");
+                    conn.Close();
+                }
+            }
+        }
+        
+        // nút hủy cho phân quyền
+        private void Button_Click_26_2(object sender, RoutedEventArgs e)
+        {
+            cbPhanQuyen.SelectedIndex = -1;
+            cbPhanQuyenNV.SelectedIndex = -1;
+        }
+
+        // nút đăng xuất tài khoản
+        private void Button_Click_27(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
+
+        // nút lương cá nhân 
+
+        private void Button_Click_28(object sender, RoutedEventArgs e)
+        {
+            gridNhanh3_LuongCaNhan.Visibility = Visibility.Visible;
+            gridNhanh3_ThongTinCaNhan.Visibility = Visibility.Hidden;
+
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
+            
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                int maNV = _nhanVienCurrent.MaNV;
+                string sql = "SELECT * FROM tb_BANGLUONG WHERE MANV = @maNV";
+                using (SqlCommand command = new SqlCommand(sql, conn))
+                {
+                    command.Parameters.AddWithValue("@maNV", maNV);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            txtBLCB.Text = reader.GetInt64(1).ToString("N0") + " Đồng";
+                            txtBPC.Text = reader.GetInt64(2).ToString("N0") + " Đồng";
+                            long tong = reader.GetInt64(1) + reader.GetInt64(2);
+                            txtBTN.Text = tong.ToString("N0") + " Đồng";
+                        }
+                    }
+                }
+                conn.Close();
+            }
+        }
+
+        private void Button_Click_29(object sender, RoutedEventArgs e)
+        {
+            gridNhanh3_LuongCaNhan.Visibility = Visibility.Hidden;
+            gridNhanh3_ThongTinCaNhan.Visibility = Visibility.Visible;
         }
     }
 }
