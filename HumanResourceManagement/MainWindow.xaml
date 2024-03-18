@@ -36,9 +36,9 @@
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" Background="{TemplateBinding Background}" 
-                BorderBrush="{TemplateBinding BorderBrush}" 
-                BorderThickness="0,0,0,0" 
-                CornerRadius="0">
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="0,0,0,0" 
+                        CornerRadius="0">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
