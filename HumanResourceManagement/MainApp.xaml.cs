@@ -2257,15 +2257,21 @@ namespace HumanResourceManagement
                     MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn xóa chứ", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
-                        conn.Open();
-                        command.ExecuteNonQuery();
-                        conn.Close();
-                        conn.Open();
+                        string updateQuery = "UPDATE tb_NHANVIEN SET MAPB = @newPhongBan WHERE MAPB = @oldPhongBan";
+
+                        using (SqlCommand updateCommand = new SqlCommand(updateQuery, conn))
+                        {
+                            updateCommand.Parameters.AddWithValue("@newPhongBan", 3); // newChucVu là mã chức vụ mới bạn muốn gán cho nhân viên
+                            updateCommand.Parameters.AddWithValue("@oldPhongBan", maPB); // oldChucVu là mã chức vụ bạn muốn xóa
+
+                            conn.Open();
+                            updateCommand.ExecuteNonQuery();
+                            command.ExecuteNonQuery();
+                            conn.Close();
+                        }
                     }
                 }
             }
-
-
 
             conn.Open();
             string sql = "SELECT * FROM tb_PHONGBAN";
