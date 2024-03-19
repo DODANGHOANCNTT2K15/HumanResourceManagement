@@ -167,9 +167,10 @@
             <Label x:Name="txtMainTitle" Content="Danh sách nhân viên" Margin="30,0,0,0" FontFamily="Bahnschrift" Foreground="White" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Border>
         <!-- Phần nhánh 1-->
-        <Grid x:Name="gridNhanh1" Margin="304,120,49,629" Visibility="Hidden">
+        <Grid x:Name="gridNhanh1" Margin="210,120,0,80" Visibility="Hidden">
             <Border CornerRadius="10" Margin="-20,0,0,0"/>
-            <Label Content="CHÀO MỪNG" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Britannic Bold" FontSize="100" Foreground="White" FontWeight="Bold"/>
+            <Image Source="/Assent/Picture/welcom.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="600" Width="1090"/>
+            <Label Content="CHÀO MỪNG" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cooper Black" FontSize="100" Foreground="White" FontWeight="Bold" Background="#FF4A8249" OpacityMask="Black" BorderBrush="#FF191313" Width="780" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         </Grid>
         <!-- Phần nhánh 2-->
         <Grid x:Name="gridNhanh2_0" Margin="304,120,49,629" Panel.ZIndex="100" Visibility="Hidden">
@@ -200,7 +201,7 @@
             </ScrollViewer>
         </Grid>
         <!--nhánh 3 cá nhân thông tin-->
-        <Grid x:Name="gridNhanh3" Margin="210,69,0,0" Visibility="Hidden">
+        <Grid x:Name="gridNhanh3" Margin="210,69,0,0">
             <Border Background="#FF202123"/>
             <Grid x:Name="gridNhanh3_ThongTinCaNhan" Margin="476,0,0,0" Visibility="Hidden">
                 <Label Content="Thông tin cá nhân" Margin="174,28,0,0" FontFamily="Bahnschrift" FontSize="48" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="70" Width="382"/>
@@ -667,7 +668,7 @@
             </Grid>
             <Grid x:Name="gridNhanh6_LuongNV" Margin="476,0,0,0" Visibility="Hidden">
                 <Label Content="Lương" Margin="174,28,0,0" FontFamily="Bahnschrift" FontSize="48" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="70" Width="382" HorizontalContentAlignment="Center"/>
-                <TextBox x:Name="txtBLCBO" HorizontalAlignment="Left" Margin="124,156,0,0" Foreground="#B2000000" VerticalAlignment="Top" Width="490" Height="43" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.05" Text="Đỗ Đăng Hoàn" Padding="20,0,0,0" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="20" IsReadOnly="True" >
+                <TextBox x:Name="txtBLCBO" HorizontalAlignment="Left" Margin="124,156,0,0" Foreground="#B2000000" VerticalAlignment="Top" Width="490" Height="43" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.05" Text="Chưa phân lương" Padding="20,0,0,0" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="20" IsReadOnly="True" >
                     <TextBox.Template>
                         <ControlTemplate TargetType="{x:Type TextBox}">
                             <Border Background="{TemplateBinding Background}" 
@@ -679,7 +680,7 @@
                         </ControlTemplate>
                     </TextBox.Template>
                 </TextBox>
-                <TextBox x:Name="txtBPCO" HorizontalAlignment="Left" Margin="124,268,0,0" Foreground="#B2000000" VerticalAlignment="Top" Width="490" Height="44" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.05" Text="Đỗ Đăng Hoàn" Padding="20,0,0,0" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="20" IsReadOnly="True" >
+                <TextBox x:Name="txtBPCO" HorizontalAlignment="Left" Margin="124,268,0,0" Foreground="#B2000000" VerticalAlignment="Top" Width="490" Height="44" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.05" Text="Chưa phân lương" Padding="20,0,0,0" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="20" IsReadOnly="True" >
                     <TextBox.Template>
                         <ControlTemplate TargetType="{x:Type TextBox}">
                             <Border Background="{TemplateBinding Background}" 
@@ -691,7 +692,7 @@
                         </ControlTemplate>
                     </TextBox.Template>
                 </TextBox>
-                <TextBox x:Name="txtBTNO" HorizontalAlignment="Left" Margin="124,381,0,0" Foreground="#B2000000" VerticalAlignment="Top" Width="490" Height="44" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.05" Text="Đỗ Đăng Hoàn" Padding="20,0,0,0" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="20" IsReadOnly="True" >
+                <TextBox x:Name="txtBTNO" HorizontalAlignment="Left" Margin="124,381,0,0" Foreground="#B2000000" VerticalAlignment="Top" Width="490" Height="44" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.05" Text="Chưa phân lương" Padding="20,0,0,0" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="20" IsReadOnly="True" >
                     <TextBox.Template>
                         <ControlTemplate TargetType="{x:Type TextBox}">
                             <Border Background="{TemplateBinding Background}" 
@@ -720,7 +721,7 @@
                 </Label>
                 <Button x:Name="buttonUpdateLuong" Content="Sửa lương" HorizontalAlignment="Center" Margin="0,473,0,0" VerticalAlignment="Top" Height="45" Width="256" Click="Button_Click_34" Background="{x:Null}" Foreground="#FFFDF9F9" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16"/>
             </Grid>
-            <Grid x:Name="gridNhanh6_SuaLuongNV" Margin="476,0,0,0">
+            <Grid x:Name="gridNhanh6_SuaLuongNV" Margin="476,0,0,0" Visibility="Hidden">
                 <Label Content="Sửa lương" Margin="174,28,0,0" FontFamily="Bahnschrift" FontSize="48" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="70" Width="382" HorizontalContentAlignment="Center"/>
                 <TextBox x:Name="txtBLCBOS" GotFocus="Focus_Text8"  HorizontalAlignment="Left" Margin="124,156,0,0" Foreground="#B2000000" VerticalAlignment="Top" Width="490" Height="43" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.05" Text="Đỗ Đăng Hoàn" Padding="20,0,0,0" VerticalContentAlignment="Center" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="20">
                     <TextBox.Template>

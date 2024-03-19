@@ -378,11 +378,13 @@ namespace HumanResourceManagement
                 {
                     if (rbNamUpdatePersonal.IsChecked == true)
                     {
-                        command.Parameters.AddWithValue("@gioiTinh", true); // Nam
+                        command.Parameters.AddWithValue("@gioiTinh", true); 
+                         _nhanVienCurrent.GioiTinh = true;
                     }
                     else if (rbNuUpdatePersonal.IsChecked == true)
                     {
                         command.Parameters.AddWithValue("@gioiTinh", false);
+                        _nhanVienCurrent.GioiTinh = false;
                     }
                     command.Parameters.AddWithValue("@tenNV", txtBETENNV.Text);
                     command.Parameters.AddWithValue("@dienThoai", txtBESDT.Text);
@@ -392,6 +394,13 @@ namespace HumanResourceManagement
                     command.Parameters.AddWithValue("@maCV", ((ComboBoxItem)cbChucVuUpdatePersonal.SelectedItem).Tag.ToString());
                     command.Parameters.AddWithValue("@maQuyen", _nhanVienCurrent.MaQuyen);
                     command.Parameters.AddWithValue("@maNV", _nhanVienCurrent.MaNV);
+                    _nhanVienCurrent.TenNV = txtBETENNV.Text;
+                    _nhanVienCurrent.DienThoai = txtBESDT.Text;
+                    _nhanVienCurrent.NgaySinh = ngaySinhUpdatePersonal.SelectedDate.Value.ToString("dd/MM/yyyy");
+                    _nhanVienCurrent.DiaChi = txtBEDC.Text;
+                    _nhanVienCurrent.MaCV = int.Parse(((ComboBoxItem)cbChucVuUpdatePersonal.SelectedItem).Tag.ToString());
+                    _nhanVienCurrent.MaPB = int.Parse(((ComboBoxItem)cbPhongBanUpdatePersonal.SelectedItem).Tag.ToString());
+                   
 
                     conn.Open();
                     command.ExecuteNonQuery();
@@ -399,6 +408,40 @@ namespace HumanResourceManagement
                     conn.Close();
                 }
             }
+
+            if (_nhanVienCurrent.GioiTinh == true)
+            {
+                BitmapImage newImage = new BitmapImage(new Uri("Assent/Picture/userNam.png", UriKind.Relative));
+                imgPersonal.Fill = new ImageBrush { ImageSource = newImage };
+            }
+            else
+            {
+                BitmapImage newImage = new BitmapImage(new Uri("Assent/Picture/userNu.png", UriKind.Relative));
+                imgPersonal.Fill = new ImageBrush { ImageSource = newImage };
+            }
+
+            txtBMaNV.Text = _nhanVienCurrent.MaNV.ToString();
+            txtBTenNV.Text = _nhanVienCurrent.TenNV.ToString();
+            string query1 = "SELECT p.TENPB " +
+                            "FROM tb_NHANVIEN n " +
+                            "JOIN tb_PHONGBAN p ON n.MAPB = p.MAPB " +
+                            "WHERE n.MANV = '" + _nhanVienCurrent.MaNV + "'";
+            GetDuLieuTuBangKhac(query1, txtBPB);
+            string query2 = "SELECT p.TENCV " + 
+                            "FROM tb_NHANVIEN n " +
+                            "JOIN tb_CHUCVU p ON n.MACV = p.MACV " +
+                            "WHERE n.MANV = '" + _nhanVienCurrent.MaNV + "'";
+            GetDuLieuTuBangKhac(query2, txtBCV);
+            string query3 = "SELECT p.TENQUYEN " + 
+                            "FROM tb_NHANVIEN n " +
+                            "JOIN tb_QUYEN p ON n.MAQUYEN = p.MAQUYEN " +
+                            "WHERE n.MANV = '" + _nhanVienCurrent.MaNV + "'";
+            GetDuLieuTuBangKhac(query3, txtBQuyen);
+            if (_nhanVienCurrent.GioiTinh == false) { txtBGT.Text = "Nữ"; } else { txtBGT.Text = "Nam"; }
+            txtBDC.Text = _nhanVienCurrent.DiaChi;
+            txtBSDT.Text = _nhanVienCurrent.DienThoai;
+            txtBNS.Text = _nhanVienCurrent.NgaySinh;
+
         }
 
         // nút vào nhánh cập nhật thông tin cá nhân
@@ -552,6 +595,13 @@ namespace HumanResourceManagement
         // nút thêm nhân viên trong nhánh 2
         private void Button_Click_7(object sender, RoutedEventArgs e)
         {
+            if(_nhanVienCurrent.MaQuyen == 3 || _nhanVienCurrent.MaQuyen == 4)
+            {
+                MessageBox.Show("Bạn không có quyền thêm nhân viên !");
+                return;
+            }
+
+
             gridNhanh1.Visibility = Visibility.Hidden;
             gridNhanh2_0.Visibility = Visibility.Hidden;
             gridNhanh2_1.Visibility = Visibility.Hidden;
@@ -673,6 +723,13 @@ namespace HumanResourceManagement
         // xem thông tin của nhân viên khác 
         private void Button_Click_10(object sender, RoutedEventArgs e, int maNV)
         {
+
+            if (_nhanVienCurrent.MaQuyen == 4)
+            {
+                MessageBox.Show("Bạn không thể xem nhân viên khác!");
+                return;
+            }
+
             gridNhanh1.Visibility = Visibility.Hidden;
             gridNhanh2_0.Visibility = Visibility.Hidden;
             gridNhanh2_1.Visibility = Visibility.Hidden;
@@ -749,6 +806,12 @@ namespace HumanResourceManagement
         // nút xóa nhân viên và tải lại danh sách cho nhân viên
         private void Button_Click_11(object sender, RoutedEventArgs e, int maNV)
         {
+            if (_nhanVienCurrent.MaQuyen == 3 || _nhanVienCurrent.MaQuyen == 4)
+            {
+                MessageBox.Show("Bạn không có xóa nhân viên !");
+                return;
+            }
+
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
             string query = "DELETE FROM tb_NHANVIEN WHERE MANV = @maNV";
 
@@ -940,9 +1003,15 @@ namespace HumanResourceManagement
             gridNhanh10_3.Visibility = Visibility.Hidden;
         }
 
-        // nút hiện nhánh 7
+        // nút hiện nhánh 7  Cập nhật thông tin cho nhân viên khác
         private void Button_Click_14(object sender, RoutedEventArgs e)
         {
+            if (_nhanVienCurrent.MaQuyen == 3 || _nhanVienCurrent.MaQuyen == 4)
+            {
+                MessageBox.Show("Bạn không có quyền cập nhật nhân viên !");
+                return;
+            }
+
             gridNhanh1.Visibility = Visibility.Hidden;
             gridNhanh2_0.Visibility = Visibility.Hidden;
             gridNhanh2_1.Visibility = Visibility.Hidden;
@@ -1563,36 +1632,16 @@ namespace HumanResourceManagement
             scrollViewDataPhongBan.Content = wrapPanel;
             conn.Close();
         }
-
-        // phần chấm công
-        private void Button_Click_19(object sender, RoutedEventArgs e)
-        {
-            txtMainTitle.Content = "CHẤM CÔNG";
-
-            gridNhanh1.Visibility = Visibility.Hidden;
-            gridNhanh2_0.Visibility = Visibility.Hidden;
-            gridNhanh2_1.Visibility = Visibility.Hidden;
-            gridNhanh3.Visibility = Visibility.Hidden;
-            gridNhanh4.Visibility = Visibility.Hidden;
-            gridNhanh5.Visibility = Visibility.Hidden;
-            gridNhanh6.Visibility = Visibility.Hidden;
-            gridNhanh7.Visibility = Visibility.Visible;
-            gridNhanh8_0.Visibility = Visibility.Hidden;
-            gridNhanh8_1.Visibility = Visibility.Hidden;
-            gridNhanh8_3.Visibility = Visibility.Hidden;
-            gridNhanh9_0.Visibility = Visibility.Hidden;
-            gridNhanh9_1.Visibility = Visibility.Hidden;
-            gridNhanh9_3.Visibility = Visibility.Hidden;
-            gridNhanh10_0.Visibility = Visibility.Hidden;
-            gridNhanh10_1.Visibility = Visibility.Hidden;
-            gridNhanh10_3.Visibility = Visibility.Hidden;
-
-        }
-
  
         //xác nhận chỉnh sửa chức vụ
         private void Button_Click_20_1(object sender, RoutedEventArgs e) 
         {
+            if (_nhanVienCurrent.MaQuyen == 3 || _nhanVienCurrent.MaQuyen == 4)
+            {
+                MessageBox.Show("Bạn không quyền chỉnh sửa chức vụ !");
+                return;
+            }
+
             ComboBoxItem selectedCV = (ComboBoxItem)cbUpdateSelectCV.SelectedItem;
             int maCV = int.Parse(selectedCV.Tag.ToString());
 
@@ -1738,6 +1787,12 @@ namespace HumanResourceManagement
         // button xóa chức vụ
         private void Button_Click_21(object sender, RoutedEventArgs e, int maCV)
         {
+            if (_nhanVienCurrent.MaQuyen == 3 || _nhanVienCurrent.MaQuyen == 4)
+            {
+                MessageBox.Show("Bạn không có quyền xóa chức vụ !");
+                return;
+            }
+
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
             string query = "DELETE FROM tb_CHUCVU WHERE MACV = @maCV";
 
@@ -1750,13 +1805,22 @@ namespace HumanResourceManagement
                     MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn xóa chứ", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
-                        conn.Open();
-                        command.ExecuteNonQuery();
-                        conn.Close();
-                        conn.Open();
-                    } 
+                        string updateQuery = "UPDATE tb_NHANVIEN SET MACV = @newChucVu WHERE MACV = @oldChucVu";
+
+                        using (SqlCommand updateCommand = new SqlCommand(updateQuery, conn))
+                        {
+                            updateCommand.Parameters.AddWithValue("@newChucVu", 5); // newChucVu là mã chức vụ mới bạn muốn gán cho nhân viên
+                            updateCommand.Parameters.AddWithValue("@oldChucVu", maCV); // oldChucVu là mã chức vụ bạn muốn xóa
+
+                            conn.Open();
+                            updateCommand.ExecuteNonQuery();
+                            command.ExecuteNonQuery();
+                            conn.Close();
+                        }
+                    }
                 }
             }
+
 
             conn.Open();
             string sql = "SELECT * FROM tb_CHUCVU";
@@ -1868,6 +1932,12 @@ namespace HumanResourceManagement
         // Xác nhận thêm chức vụ
         private void Button_Click_22_1(object sender, RoutedEventArgs e)
         {
+            if (_nhanVienCurrent.MaQuyen == 3 || _nhanVienCurrent.MaQuyen == 4)
+            {
+                MessageBox.Show("Bạn không có quyèn thêm chức vụ !");
+                return;
+            }
+
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
             string query = "INSERT INTO tb_CHUCVU (TENCV) VALUES (@tenCV)";
 
@@ -2017,7 +2087,12 @@ namespace HumanResourceManagement
         //nút xác nhận chỉnh sửa phòng ban
         private void Button_Click_23_1(object sender, RoutedEventArgs e) 
         {
-           
+            if (_nhanVienCurrent.MaQuyen == 3 || _nhanVienCurrent.MaQuyen == 4)
+            {
+                MessageBox.Show("Bạn không quyền có chỉnh sửa phòng ban !");
+                return;
+            }
+
             ComboBoxItem selectedPB = (ComboBoxItem)cbUpdateSelectPB.SelectedItem;
             int maPB = int.Parse(selectedPB.Tag.ToString());
             
@@ -2164,6 +2239,12 @@ namespace HumanResourceManagement
         //nút xóa phòng ban
         private void Button_Click_24(object sender, RoutedEventArgs e, int maPB) 
         {
+            if (_nhanVienCurrent.MaQuyen == 3 || _nhanVienCurrent.MaQuyen == 4)
+            {
+                MessageBox.Show("Bạn không có quyền xóa phòng ban !");
+                return;
+            }
+
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
             string query = "DELETE FROM tb_PHONGBAN WHERE MAPB = @maPB";
 
@@ -2183,6 +2264,8 @@ namespace HumanResourceManagement
                     }
                 }
             }
+
+
 
             conn.Open();
             string sql = "SELECT * FROM tb_PHONGBAN";
@@ -2302,6 +2385,12 @@ namespace HumanResourceManagement
         //nút xác nhân thêm phòng ban
         private void Button_Click_25_1(object sender, RoutedEventArgs e)
         {
+            if (_nhanVienCurrent.MaQuyen == 3 || _nhanVienCurrent.MaQuyen == 4)
+            {
+                MessageBox.Show("Bạn không có quyền thêm phòng ban !");
+                return;
+            }
+
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
             string query = "INSERT INTO tb_PHONGBAN (TENPB) VALUES (@tenPB)";
 
@@ -2452,6 +2541,12 @@ namespace HumanResourceManagement
         // nút phân quyền 
         private void Button_Click_26_1(object sender, RoutedEventArgs e)
         {
+            if (_nhanVienCurrent.MaQuyen == 3 || _nhanVienCurrent.MaQuyen == 4 || _nhanVienCurrent.MaQuyen == 2)
+            {
+                MessageBox.Show("Bạn không thể phân quyền !");
+                return;
+            }
+
             int maNV = int.Parse(((ComboBoxItem)cbPhanQuyenNV.SelectedItem).Tag.ToString());
             int maQuyen = int.Parse(((ComboBoxItem)cbPhanQuyen.SelectedItem).Tag.ToString());
 
@@ -2703,6 +2798,11 @@ namespace HumanResourceManagement
 
         private void Focus_Text8(object sender, RoutedEventArgs e)
         {
+            if(txtBLCBOS.Text == "Chưa phân lương")
+            {
+                txtBLCBOS.Text = "";
+            }
+
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -2737,6 +2837,10 @@ namespace HumanResourceManagement
 
         private void Focus_Text9(object sender, RoutedEventArgs e)
         {
+            if (txtBPCOS.Text == "Chưa phân lương")
+            {
+                txtBPCOS.Text = "";
+            }
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -2795,6 +2899,12 @@ namespace HumanResourceManagement
         // button Xong sửa lương
         private void Button_Click_33(object sender, RoutedEventArgs e)
         {
+            if (_nhanVienCurrent.MaQuyen == 2 || _nhanVienCurrent.MaQuyen == 4 )
+            {
+                MessageBox.Show("Bạn không có quyền sửa lương nhân viên !");
+                return;
+            }
+
             string connString = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyNhanSu;Integrated Security=True;Encrypt=False";
             int maNV = int.Parse(buttonLuongNV.Tag.ToString());
 
